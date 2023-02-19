@@ -7,9 +7,7 @@
 		/*--------- Modelo agregar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_usuario_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_usuarios(usuario,nombre_usuario,estado_usuario,
-			contrasena,id_rol,primer_ingreso,fecha_vencimiento,correo_electronico,creado_por,fecha_creacion)
-			VALUES(?,?,?,?,?,?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_usuarios(?,?,?,?,?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['usu']);
 			$sql->bindParam(2,$datos['nombre']);
@@ -40,11 +38,8 @@
 
 
 		/*--------- Modelo actualizar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function actualizar_usuario_modelo($dato,$id)
-		{
-			$sql=mainModel::conectar()->prepare("UPDATE tbl_usuarios SET usuario=?,nombre_usuario=?,estado_usuario=?,
-			id_rol=?, correo_electronico=?,modificado_por=?,fecha_modificacion=? 
-			WHERE id_usuario=?");
+		protected static function actualizar_usuario_modelo($dato,$id){
+			$sql=mainModel::conectar()->prepare("CALL proc_update_usuarios (?,?,?,?,?,?,?,?);");
 
 			$sql->bindParam(1,$dato['usua']);
 			$sql->bindParam(2,$dato['nombrea']);	
@@ -85,7 +80,7 @@
 		
 		 protected static function eliminar_usuario_modelo($accion,$id){
 			if($accion=='inactivar'){
-				$sql=mainModel::conectar()->prepare("UPDATE tbl_usuarios set estado_usuario=2 where id_usuario=?");
+				$sql=mainModel::conectar()->prepare("CALL proc_delete_usuarios (?);");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;
