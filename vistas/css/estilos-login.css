@@ -1,0 +1,159 @@
+#imagen-cafe{
+    width:30%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.icon-clave, .icon-user, .icono_nuevoconf, .icono_nuevo{
+    color:white;
+}
+
+#h3-login,#p-login{
+    color:white;
+}
+
+#usuario,#clave,#clave_new,#conf_clave_new,#respuesta{
+    background-color:rgb(0, 0, 0);
+    color:white;
+    border-radius: 2px;
+    padding: 4px;
+    position: absolute;
+    top:15%;
+    border: 1px solid;
+    border-color: transparent transparent rgb(0, 132, 255) transparent;
+}
+
+
+#usuario::placeholder,#clave::placeholder,#clave_new::placeholder,#conf_clave_new::placeholder, #respuesta::placeholder 
+{color: rgb(255, 255, 255);opacity: 0.7;}
+
+
+#opcion_rec, #opcion_reg{ 
+    color:rgb(39, 243, 243);
+    text-decoration: none;
+    font-size: 15px;
+    margin:0%;
+}
+
+#opcion_rec:hover, #opcion_reg:hover{
+    color:rgb(238, 238, 238);
+}
+
+#ing_respuesta{
+    background-color:rgb(0, 0, 0);
+    color:white;
+    border-radius: 2px;
+    padding: 1px;
+    position: relative;
+    top:5%;
+    border: 1px solid;
+    border-color: transparent transparent rgb(0, 132, 255) transparent;
+}
+
+.icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+  
+
+  #loginForm input{
+      display: inline-block;
+      position: relative;
+      float: none;
+      }
+
+  #loginForm input[type="text"] {
+      width: calc(100% - 40px);
+  }
+
+  #loginForm input[type="password"] {
+      width: calc(100% - 40px);
+  }
+
+  #loginForm input[type="submit"] {
+      width: 76px;
+      top: auto;
+      right: auto;
+  }
+
+  .caja {
+    margin:0 auto;	
+    border:1px solid #d9d9d9;
+    overflow: hidden;
+    width: 230px;
+    position:relative;
+ }
+
+ select {
+    background: WHITE;
+    color:black;
+    border: none;
+    font-size: 16px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+ }
+ 
+ select:focus{ outline: none;}
+ 
+ .caja::after{
+     content:"\025be";
+     display:table-cell;
+     padding-top:7px;
+     text-align:center;
+     width:30px;
+     height:30px;
+     background-color:#d9d9d9;
+     position:absolute;
+     top:0;
+     right:0px;	
+     pointer-events: none;
+ }
+
+ input:disabled {
+    background: rgb(71, 66, 66);
+  }
+
+  .contrasena div {
+    position: relative;
+}
+ 
+ 
+.contrasena input {
+    width: 100%;
+    padding: 7px;
+}
+ 
+.contrasena span {
+    position: absolute;
+    right: 4px;
+    top: 38px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 2px 10px;
+    background-color: #dadada;
+}
+
+.conf-contrasena div {
+    position: relative;
+}
+ 
+ 
+.conf-contrasena input {
+    width: 100%;
+    padding: 7px;
+}
+ 
+.conf-contrasena span {
+    position: absolute;
+    right: 4px;
+    top: 38px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 2px 10px;
+    background-color: #dadada;
+}

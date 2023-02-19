@@ -1,0 +1,289 @@
+<?php
+
+if($peticionAjax){
+	require_once "../modelos/mainModel.php";
+}else{
+	require_once "./modelos/mainModel.php";
+}
+
+//clase que realizará las consultas a la BD
+class Usuario extends mainModel{
+	public $user;
+	public $user_id;
+	public $password;
+	public $preg;
+	public $preg_id;
+	public $response;
+	public $fec_venc;
+	public $email;
+	public $token;
+	public $code;
+    private $db;
+
+	//Se realiza un get y set de las variables para otorgar más seguridad a los datos obtenidos
+	function getUsuario() {
+		return $this->user;
+	}
+
+	function getContrasena() {
+		return $this->password;
+	}
+
+	function setUsuario($user) {
+		$this->user = $user;
+	}
+
+	function setContrasena($password) {
+		$this->password = $password;
+	}
+
+	function getPregunta() {
+		return $this->preg;
+	}
+
+	function getRespuesta() {
+		return $this->response;
+	}
+
+	function setPregunta($preg) {
+		$this->preg = $preg;
+	}
+
+	function setRespuesta($response) {
+		$this->response = $response;
+	}
+
+	function getPreguntaId() {
+		return $this->preg_id;
+	}
+
+	function getUsuarioId() {
+		return $this->user_id;
+	}
+
+	function setPreguntaId($preg_id) {
+		$this->preg_id = $preg_id;
+	}
+
+	function setUsuarioId($user_id) {
+		$this->user_id = $user_id;
+	}
+
+	function getCorreo() {
+		return $this->email;
+	}
+
+	function setCorreo($email) {
+		$this->email = $email;
+	}
+
+	function getToken() {
+		return $this->token;
+	}
+
+	function setToken($token) {
+		$this->token = $token;
+	}
+
+	function getCodigo() {
+		return $this->code;
+	}
+
+	function setCodigo($code) {
+		$this->code = $code;
+	}
+
+	function getFecha() {
+		return $this->fec_venc;
+	}
+
+	function setFecha($fec_venc) {
+		$this->fec_venc = $fec_venc;
+	}
+
+
+/* 	Funciones de Vista de Inicio de Sesión */
+	//Funcion que realiza un select para encontrar un usuario con los datos ingresados
+	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
+	public function accesoUsuario($user, $password) {
+		$db = new mainModel();
+		$query = "SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.rol,r.id_rol FROM tbl_usuarios u
+					inner JOIN tbl_ms_roles r ON u.id_rol = r.id_rol
+		WHERE u.usuario = '".$user. "' AND BINARY u.contrasena = '".$password . "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//Funcion que realiza un select para verificar el estado de un usuario ingresado
+	//para ver si el estado es Activo y puede ser bloqueado por ingresos erroneos de la contraseña
+	public function verificarEstado($user) {
+		$db = new mainModel();
+		$query = "SELECT usuario, estado_usuario FROM tbl_usuarios WHERE usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//Función que obtiene el valor hash de la contraseña de un usuario
+	//para comparar con el hash de la contraseña que se ingresó para iniciar sesion
+	public function obtenerContrasenaHash($user) {
+		$db = new mainModel();
+		$query = "SELECT contrasena FROM tbl_usuarios WHERE usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//Funcion que realiza un update para cambiar el estado del usuario a Bloqueado al realizar tres intentos fallidos
+	public function bloquearUsuario($user) {
+		$db = new mainModel();
+		$query= ("UPDATE tbl_usuarios SET estado_usuario=3 WHERE usuario = '$user'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+	//Función que realiza un select para obtener el parametro de intentos válidos de ingreso
+	public function intentosValidos() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'ADMIN_INTENTOS_INVALIDOS' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+
+
+
+
+/* 	Funciones de Vista Opciones de Recuperación de Contraseña */
+	//Función que realiza un select para revisar si el usuario ingresado para recuperacion de contraseña existe en la bd
+	public function verificaUsuarioExistente($user) {
+		$db = new mainModel();
+		$query = "SELECT * FROM tbl_usuarios WHERE BINARY usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+
+	// obtener el usuario id para las preguntas de autoregistro
+	public function obtener_idusuario($user) {
+		$db = new mainModel();
+		$query = "SELECT * FROM tbl_usuarios WHERE BINARY usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+
+	/* Funciones de Vista Preguntas de Seguridad */
+	//Función para revisar que la respuesta de una pregunta ingresada es la correcta
+	public function verificarPreguntaSeguridad($preg,$response,$user) {
+		$db = new mainModel();
+		$query = ("SELECT pu.respuesta FROM tbl_ms_preguntas_usuario pu 
+							inner JOIN tbl_usuarios u ON pu.id_usuario = u.id_usuario 
+							inner JOIN tbl_preguntas p ON pu.id_pregunta = p.id_pregunta
+			WHERE BINARY pu.respuesta='$response'and p.pregunta='$preg' and u.usuario='$user' limit 1");
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+
+
+
+	/* Funciones de Vista Cambio de Contraseña */
+	//Función que busca la contraseña actual del usuario para validar que la contraseña nueva no sea igual a esa
+	public function verificarContrasenaActual($user) {
+		$db = new mainModel();
+		$query = "SELECT * FROM tbl_usuarios WHERE usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//Función que actualiza la contraseña del usuario
+	public function cambioContrasena($user,$password) {
+		$db = new mainModel();
+		$query = "UPDATE tbl_usuarios set contrasena='$password' where usuario='$user'";
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+	//Función que actualiza el estado del usuario a Activo
+	public function desbloquearUsuario($user) {
+		$db = new mainModel();
+		$query= ("UPDATE tbl_usuarios SET estado_usuario=1,modificado_por='$user', fecha_modificacion=now() where usuario='$user'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+	//Función que actualiza la fecha de vencimiento del usuario
+	//sumando 360 dias al dia en que se hizo el cambio de contraseña
+	public function actualizarFechaVencimiento($user,$fec_venc) {
+		$db = new mainModel();
+		$query= ("UPDATE tbl_usuarios SET fecha_vencimiento=(date_add(now(), INTERVAL '$fec_venc' day)) where usuario='$user'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+	//función para el obtener el parametro minimo de caracteres para la contraseña
+	public function minContrasena() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'MIN_CONTRASENA' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//función para el obtener el parametro maximo de caracteres para la contraseña
+	public function maxContrasena() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'MAX_CONTRASENA' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//función para el obtener el parametro de los dias que se deben sumar a la fecha actual
+	//para la fecha de vencimiento
+	public function diasVencimiento() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'ADMIN_DIAS_VIGENCIA' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+
+
+	/* Funciones de vista Primer Ingreso */
+	//Función que revisa si la pregunta que se seleccionó para ingresar la respuesta ya fue respondida anteriormente
+	public function revisarPreguntaRespondida($response,$user_id,$preg_id) {
+		$db = new mainModel();
+		$query = ("SELECT *FROM tbl_ms_preguntas_usuario WHERE id_pregunta='$preg_id'and id_usuario='$user_id'and respuesta='$response'");
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//Función para guardar las respuestas que ingrese el usuario
+	public function insertarRespuestasSeguridad($response,$user_id,$preg_id) {
+		$db = new mainModel();
+		$query = ("INSERT into tbl_ms_preguntas_usuario (id_pregunta,id_usuario,respuesta) 
+		VALUES('$preg_id','$user_id','$response')");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+	
+	//Funcion para actualizar el estado de usuario de Nuevo a Activo
+	//después de responder la cantidad de preguntas establecida en el parámetro
+	public function actualizarUsuario($user_id) {
+		$db = new mainModel();
+		$query= ("UPDATE tbl_usuarios SET estado_usuario=1, primer_ingreso=1 WHERE id_usuario = '$user_id'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+
+
+
+	/* Funciones para recuperacion de contraseña por email */
+	//Funcion que inserta los valores que se usurán para verificar si es posible recuperar por email
+	public function insertToken($email,$code){
+		$db = new mainModel();
+		$query = ("INSERT into tbl_restablece_clave_email(id_restablecer,email,codigo)VALUES(null,'$email','$code')");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+	
+	//Funcion que verifica si los valores que se envian al sistema para recuperar contraseña son los mismos registrados en la bd
+	public function verificaCodigoToken($email,$code){
+		$db = new mainModel();
+		$query = "SELECT*from tbl_restablece_clave_email where email='$email' and codigo='$code' limit 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//Funcion que obtiene el parametro de vigencia del codigo enviado por correo
+	public function vigenciaCodigo() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'HORASVIGENCIA_CODIGO_CORREO' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	public function registrarUltimaConexionModelo($user_id){
+		$db = new mainModel();
+		$query= ("UPDATE tbl_usuarios SET fecha_ultima_conexion=now() WHERE id_usuario = '$user_id'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+}	
