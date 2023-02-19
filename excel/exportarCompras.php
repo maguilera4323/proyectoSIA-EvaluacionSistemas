@@ -27,10 +27,10 @@
 		";
 		
 		$tipo="SELECT c.id_compra, c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
-		c.total_compra FROM TBL_compras c
-		inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor
-		inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
-		inner JOIN TBL_estado_compras e ON e.id_estado_compra = c.id_estado_compra";
+		c.total_compra FROM tbl_compras c
+		inner JOIN tbl_Proveedores p ON p.id_Proveedores = c.id_proveedor
+		inner JOIN tbl_usuarios u ON u.id_usuario = c.id_usuario
+		inner JOIN tbl_estado_compras e ON e.id_estado_compra = c.id_estado_compra";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

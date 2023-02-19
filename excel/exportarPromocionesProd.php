@@ -23,9 +23,9 @@
 				<tbody>
 		";
 		
-		$tipo="SELECT prom.nom_promocion, prod.nom_producto, p.cantidad FROM TBL_promociones_productos p
-			inner join TBL_promociones prom on p.id_promociones=prom.id_promociones
-			inner join TBL_producto prod on p.id_producto=prod.id_producto";
+		$tipo="SELECT prom.nom_promocion, prod.nom_producto, p.cantidad FROM tbl_promociones_productos p
+			inner join tbl_promociones prom on p.id_promociones=prom.id_promociones
+			inner join tbl_producto prod on p.id_producto=prod.id_producto";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

@@ -252,7 +252,7 @@ class clienteControlador extends clienteModelo
 		
 
 		//verifica que el cliente si exista en el sistema
-		$check_cliente=mainModel::ejecutar_consulta_simple("SELECT id_clientes FROM TBL_Cliente
+		$check_cliente=mainModel::ejecutar_consulta_simple("SELECT id_clientes FROM tbl_clientes
 		WHERE id_cliente='$id'");
 		if($check_cliente->rowCount()<=0){
 			$alerta=[

@@ -264,7 +264,7 @@ class proveedorControlador extends proveedorModelo
 		
 
 		//verifica que el proveedor si exista en el sistema
-		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_Proveedores FROM TBL_Proveedores
+		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_proveedores FROM tbl_Proveedores
 		WHERE id_Proveedores='$id'");
 		if($check_proveedor->rowCount()<=0){
 			$alerta=[

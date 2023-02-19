@@ -34,7 +34,7 @@ class objetoControlador extends objetoModelo
 			exit();
 		}
 
-		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT objeto FROM TBL_objetos WHERE objeto='$nom_objeto'");
+		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT objeto FROM tbl_objetos WHERE objeto='$nom_objeto'");
 			if($check_objeto->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -155,7 +155,7 @@ class objetoControlador extends objetoModelo
 			$valor='';
 
 		//verifica que el insumo si exista en el sistema
-		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT id_objeto FROM TBL_objetos
+		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT id_objeto FROM tbl_objetos
 		WHERE id_objeto='$id'");
 		if($check_objeto->rowCount()<=0){
 			$alerta=[

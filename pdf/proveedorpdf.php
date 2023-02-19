@@ -111,7 +111,7 @@ class MYPDF extends TCPDF{
         // filtro de proveedores
         $filtroproveedor=($_POST['filtroproveedor']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_Proveedores WHERE nom_proveedor LIKE'%".$filtroproveedor."%'");
+        $sqlTrabajadores = ("SELECT * FROM tbl_proveedores WHERE nom_proveedor LIKE'%".$filtroproveedor."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);

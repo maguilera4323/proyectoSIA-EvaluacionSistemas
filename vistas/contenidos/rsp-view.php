@@ -1,8 +1,8 @@
 <?php
 
-$host = "20.163.218.52";
-$username = "admin_bd";
-$password = "clave1234";
+$host = "20.121.208.112";
+$username = "admin_respaldo";
+$password = "sistemas.2022";
 $database_name = "proyecto_cafeteria";
 $day=date("d");
 $mont=date("m");

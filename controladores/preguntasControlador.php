@@ -23,7 +23,7 @@ class preguntasControlador extends preguntasModelo
 		$fec_creacion=date('y-m-d H:i:s');
 
 		//verificar datos ingresados
-		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT pregunta FROM TBL_preguntas WHERE pregunta='$nom_pregunta'");
+		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT pregunta FROM tbl_preguntas WHERE pregunta='$nom_pregunta'");
 			if($check_pregunta->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -127,7 +127,7 @@ class preguntasControlador extends preguntasModelo
 			$id=mainModel::limpiar_cadena(($_POST['id_pregunta_del']));
 
 		//verifica que la pregunta si exista en el sistema
-		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT id_pregunta FROM TBL_preguntas
+		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT id_pregunta FROM tbl_preguntas
 		WHERE id_pregunta='$id'");
 		if($check_pregunta->rowCount()<=0){
 			$alerta=[

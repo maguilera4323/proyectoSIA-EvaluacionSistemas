@@ -221,7 +221,7 @@ class insumoControlador extends insumoModelo
 			$valor='';
 
 		//verifica que el insumo si exista en el sistema
-		$check_insumo=mainModel::ejecutar_consulta_simple("SELECT id_insumos FROM TBL_insumos
+		$check_insumo=mainModel::ejecutar_consulta_simple("SELECT id_insumos FROM tbl_insumos
 		WHERE id_insumos='$id'");
 		if($check_insumo->rowCount()<=0){
 			$alerta=[

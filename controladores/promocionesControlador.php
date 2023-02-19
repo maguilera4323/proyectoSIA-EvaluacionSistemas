@@ -141,7 +141,7 @@ class promocionesControlador extends promocionesModelo
 	
 
 	//verifica que el cliente si exista en el sistema
-	$check_promo=mainModel::ejecutar_consulta_simple("SELECT id_promociones FROM TBL_promociones
+	$check_promo=mainModel::ejecutar_consulta_simple("SELECT id_promociones FROM tbl_promociones
 	WHERE id_promociones='$id'");
 	if($check_promo->rowCount()<=0){
 		$alerta=[

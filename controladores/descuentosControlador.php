@@ -149,7 +149,7 @@ class descuentosControlador extends descuentosModelo
 		
 
 		//verifica que el usuario si exista en el sistema
-		$check_descuento=mainModel::ejecutar_consulta_simple("SELECT id_descuentos FROM TBL_descuentos
+		$check_descuento=mainModel::ejecutar_consulta_simple("SELECT id_descuentos FROM tbl_descuentos
 		WHERE id_descuentos='$id'");
 		if($check_descuento->rowCount()<=0){
 			$alerta=[

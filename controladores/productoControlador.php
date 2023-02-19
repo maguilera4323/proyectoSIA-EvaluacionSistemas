@@ -217,7 +217,7 @@ class productoControlador extends productoModelo
 		
 
 		//verifica que el usuario si exista en el sistema
-		$check_producto=mainModel::ejecutar_consulta_simple("SELECT id_producto FROM TBL_producto
+		$check_producto=mainModel::ejecutar_consulta_simple("SELECT id_producto FROM tbl_producto
 		WHERE id_Producto='$id'");
 		if($check_producto->rowCount()<=0){
 			$alerta=[

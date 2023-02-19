@@ -108,7 +108,7 @@ class MYPDF extends TCPDF{
         // filtro de roles
         $filtroroles=($_POST['filtroroles']);
 
-        $sqlroles = ("SELECT * FROM TBL_ms_roles WHERE rol LIKE'%".$filtroroles."%'");
+        $sqlroles = ("SELECT * FROM tbl_ms_roles WHERE rol LIKE'%".$filtroroles."%'");
         
 
         $query = mysqli_query($conexion, $sqlroles);

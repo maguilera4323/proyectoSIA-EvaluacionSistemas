@@ -22,7 +22,7 @@
 				<tbody>
 		";
 		
-		$tipo="SELECT * FROM TBL_descuentos";
+		$tipo="SELECT * FROM tbl_descuentos";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

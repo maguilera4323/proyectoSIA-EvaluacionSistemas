@@ -115,8 +115,8 @@ class MYPDF extends TCPDF{
 
         if(isset($filtrofactura)){
            $sqlTrabajadores = ("SELECT p.nom_cliente, p.fech_entrega, p.sitio_entrega,e.estado_pedido,p.sub_total,
-           p.ISV, p.total FROM TBL_pedidos p
-           inner join TBL_estado_pedido e on e.id_estado_pedido=p.id_estado_pedido
+           p.ISV, p.total FROM tbl_pedidos p
+           inner join tbl_estado_pedido e on e.id_estado_pedido=p.id_estado_pedido
            WHERE p.num_factura LIKE'%".$filtrofactura."%'");
         }else{
                 $sqlTrabajadores = ("SELECT * FROM TBL_pedidos");

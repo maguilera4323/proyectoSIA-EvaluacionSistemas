@@ -8,20 +8,20 @@ require_once "./pruebabitacora.php";
 
 //clase para la factura
 class Invoice{
-	private $host  = '20.163.218.52';
-	private $user  = 'admin_bd';
-	private $password   = "clave1234";
+	private $host  = '20.121.208.112';
+	private $user  = 'admin_remoto';
+	private $password   = "sistemas.2022";
 	private $database  = "proyecto_cafeteria";
-	private $datosPedido = 'TBL_pedidos';
-	private $datosDetallePedido = 'TBL_detalle_pedido';
-	private $datosCAI = 'TBL_talonario_cai';
-	private $recetario = 'TBL_recetario';
-	private $inventario = 'TBL_inventario';
-	private $movi_inv = 'TBL_movi_inventario';
-	private $pedidos_descuento = 'TBL_pedido_descuentos';
-	private $parametros = 'TBL_ms_parametros';
-	private $promocion_pedido = 'TBL_pedidos_promociones';
-	private $promocion_producto = 'TBL_promociones_productos';
+	private $datosPedido = 'tbl_pedidos';
+	private $datosDetallePedido = 'tbl_detalle_pedido';
+	private $datosCAI = 'tbl_talonario_cai';
+	private $recetario = 'tbl_recetario';
+	private $inventario = 'tbl_inventario';
+	private $movi_inv = 'tbl_movi_inventario';
+	private $pedidos_descuento = 'tbl_pedido_descuentos';
+	private $parametros = 'tbl_ms_parametros';
+	private $promocion_pedido = 'tbl_pedidos_promociones';
+	private $promocion_producto = 'tbl_promociones_productos';
 	private $dbConnect = false;
 
 	public function __construct()

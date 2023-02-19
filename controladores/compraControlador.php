@@ -8,14 +8,14 @@ require_once "./pruebabitacora.php";
 
 //clase para la factura
 class Invoice{
-	private $host  = '20.163.218.52';
-	private $user  = 'admin_bd';
-	private $password   = "clave1234";
+	private $host  = '20.121.208.112';
+	private $user  = 'admin_remoto';
+	private $password   = "sistemas.2022";
 	private $database  = "proyecto_cafeteria";
-	private $datosCompra = 'TBL_compras';
-	private $datosDetalleCompra = 'TBL_detalle_compra';
-	private $inventario = 'TBL_inventario';
-	private $movi_inv = 'TBL_movi_inventario';
+	private $datosCompra = 'tbl_compras';
+	private $datosDetalleCompra = 'tbl_detalle_compra';
+	private $inventario = 'tbl_inventario';
+	private $movi_inv = 'tbl_movi_inventario';
 	private $dbConnect = false;
 
 	public function __construct()

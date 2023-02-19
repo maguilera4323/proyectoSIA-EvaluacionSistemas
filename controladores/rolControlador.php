@@ -34,7 +34,7 @@ class rolControlador extends rolModelo
 			exit();
 		}
 
-		$check_rol=mainModel::ejecutar_consulta_simple("SELECT rol FROM TBL_ms_roles WHERE rol='$nom_rol'");
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT rol FROM tbl_ms_roles WHERE rol='$nom_rol'");
 			if($check_rol->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -148,7 +148,7 @@ class rolControlador extends rolModelo
 		public function eliminarRol(){
 		$id=mainModel::limpiar_cadena(($_POST['id_rol_del']));
 
-		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM TBL_ms_roles
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM tbl_ms_roles
 		WHERE id_rol='$id'");
 		if($check_rol->rowCount()<=0){
 			$alerta=[

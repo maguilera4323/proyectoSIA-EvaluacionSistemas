@@ -186,8 +186,8 @@ class MYPDF extends TCPDF{
              $pdf->Cell(40,6,'PRECIO UNIT.',1,0,'C',1); 
              $pdf->Cell(40,6,'TOTAL',1,1,'C',1); 
      
-             $sqlDetalle = ("SELECT pr.nom_promocion,pp.id_pedido,pp.id_promocion, pp.cantidad, pp.precio_venta FROM TBL_pedidos_promociones pp
-                     inner join TBL_promociones pr on pr.id_promociones=pp.id_promocion
+             $sqlDetalle = ("SELECT pr.nom_promocion,pp.id_pedido,pp.id_promocion, pp.cantidad, pp.precio_venta FROM tbl_pedidos_promociones pp
+                     inner join tbl_promociones pr on pr.id_promociones=pp.id_promocion
              WHERE pp.id_pedido='$pedido'");
      
                   $query2 = mysqli_query($conexion, $sqlDetalle);

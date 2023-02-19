@@ -24,8 +24,8 @@
 				<tbody>
 		";
 		
-		$tipo="SELECT p.nom_producto, p.des_produ, p.precio_produ, tp.tipo_producto FROM TBL_producto p
-		inner join TBL_tipo_producto tp on tp.id_tipo_produ=p.id_tipo_produ";
+		$tipo="SELECT p.nom_producto, p.des_produ, p.precio_produ, tp.tipo_producto FROM tbl_producto p
+		inner join tbl_tipo_producto tp on tp.id_tipo_produ=p.id_tipo_produ";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){
