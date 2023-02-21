@@ -7,7 +7,7 @@
 		/*--------- Modelo agregar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_proveedor_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_Proveedores(nom_proveedor,rtn_proveedor,
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_Proveedores(nom_proveedor,rtn_proveedor,
 			tel_proveedor,correo_proveedor,dir_proveedor)
 			VALUES(?,?,?,?,?)");
 
@@ -25,7 +25,7 @@
 		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_proveedor_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE tbl_Proveedores SET nom_proveedor=?,rtn_proveedor=?,tel_proveedor=?,
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_Proveedores SET nom_proveedor=?,rtn_proveedor=?,tel_proveedor=?,
 			correo_proveedor=?, dir_proveedor=? WHERE id_Proveedores=?");
 
 			$sql->bindParam(1,$dato['nombre']);
@@ -40,7 +40,7 @@
 
 		 protected static function eliminar_proveedor_modelo($accion,$id){
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM tbl_Proveedores where id_Proveedores=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Proveedores=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

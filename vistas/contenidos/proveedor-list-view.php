@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=2";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=2";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -69,7 +69,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_proveedores.nom_proveedor LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_proveedores.nom_proveedor LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -103,7 +103,7 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT * FROM tbl_proveedores 
+$SQL="SELECT * FROM TBL_proveedores 
 $where";
 $dato = mysqli_query($conexion, $SQL);
 

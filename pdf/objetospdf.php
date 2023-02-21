@@ -110,7 +110,7 @@ class MYPDF extends TCPDF{
         // filtro de objetos
         $filtroobjetos=($_POST['filtroobjetos']);
 
-        $sqlobjetos = ("SELECT * FROM tbl_objetos WHERE objeto LIKE'%".$filtroobjetos."%' or tipo_objeto LIKE'%".$filtroobjetos."%'");
+        $sqlobjetos = ("SELECT * FROM TBL_objetos WHERE objeto LIKE'%".$filtroobjetos."%' or tipo_objeto LIKE'%".$filtroobjetos."%'");
         
 
         $query = mysqli_query($conexion, $sqlobjetos);

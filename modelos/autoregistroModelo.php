@@ -7,7 +7,7 @@
 		/*--------- Modelo autoregistro usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function autoregistro_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_usuarios(usuario,nombre_usuario,estado_usuario,
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_usuarios(usuario,nombre_usuario,estado_usuario,
 			contrasena,id_rol,fecha_vencimiento,correo_electronico,creado_por,fecha_creacion)
 			VALUES(?,?,?,?,?,?,?,?,?)");
 

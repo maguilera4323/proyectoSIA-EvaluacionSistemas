@@ -109,7 +109,7 @@ class MYPDF extends TCPDF{
         // filtro de parametros
         $filtroparametros=($_POST['filtroparametros']);
 
-        $sqlparametros = ("SELECT * FROM tbl_ms_parametros WHERE parametro LIKE'%".$filtroparametros."%'");
+        $sqlparametros = ("SELECT * FROM TBL_ms_parametros WHERE parametro LIKE'%".$filtroparametros."%'");
         
 
         $query = mysqli_query($conexion, $sqlparametros);

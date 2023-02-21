@@ -112,8 +112,8 @@ class MYPDF extends TCPDF{
         $filtrousuarios=($_POST['filtrousuarios']);
 
         $sqlusuarios = ("SELECT u.usuario, u.nombre_usuario,u.estado_usuario,r.rol,u.correo_electronico,
-        u.creado_por FROM tbl_usuarios u
-        inner join tbl_ms_roles r on r.id_rol=u.id_rol
+        u.creado_por FROM TBL_usuarios u
+        inner join TBL_ms_roles r on r.id_rol=u.id_rol
         WHERE r.rol LIKE'%".$filtrousuarios."%' or u.usuario LIKE'%".$filtrousuarios."%' or u.nombre_usuario LIKE'%".$filtrousuarios."%'");
         
 

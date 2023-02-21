@@ -26,7 +26,7 @@
 				<tbody>
 		";
 		
-		$tipo="SELECT * FROM tbl_proveedores";
+		$tipo="SELECT * FROM TBL_Proveedores";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

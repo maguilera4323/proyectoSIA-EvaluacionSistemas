@@ -177,7 +177,7 @@ class TipoproductoControlador extends TipoproductoModelo
 		
 
 		//verifica que el usuario si exista en el sistema
-		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_tipo_producto FROM tbl_tipo_producto
+		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_tipo_producto FROM TBL_tipo_producto
 		WHERE id_tipo_Producto='$id'");
 		if($check_Tipo_producto->rowCount()<=0){
 			$alerta=[

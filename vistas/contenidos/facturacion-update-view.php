@@ -8,7 +8,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=16";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=16";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -48,8 +48,8 @@
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
 					$query="SELECT p.id_pedido, p.nom_cliente,  p.dni_cliente, p.num_factura, p.fech_pedido, p.fech_entrega, p.sitio_entrega,
-					p.sub_total, p.ISV, p.total, f.forma_pago, p.fech_facturacion,p.id_estado_pedido FROM tbl_pedidos p
-					inner join tbl_forma_pago f on f.id_forma_pago=p.id_forma_pago
+					p.sub_total, p.ISV, p.total, f.forma_pago, p.fech_facturacion,p.id_estado_pedido FROM TBL_pedidos p
+					inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
 					where p.id_pedido='$id_act_pedido'";
 					$resultado=mysqli_query($conexion,$query);
 
@@ -79,7 +79,7 @@
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos
-					$queryPrimerIdDetalle="SELECT id_detalle_pedido FROM tbl_detalle_pedido 
+					$queryPrimerIdDetalle="SELECT id_detalle_pedido FROM TBL_detalle_pedido 
 					where id_pedido='$id_act_pedido' LIMIT 1";
 					$resultadoPrimerIdDetalle=mysqli_query($conexion,$queryPrimerIdDetalle);
 
@@ -92,7 +92,7 @@
 
 					//query para obtener la cantidad de insumos que corresponden a la compra seleccionada para editar
 					//el valor obtenido será utilizado en el ciclo de abajo como limite 
-					$queryRegistrosDetalle="SELECT COUNT(*) as contador FROM tbl_detalle_pedido 
+					$queryRegistrosDetalle="SELECT COUNT(*) as contador FROM TBL_detalle_pedido 
 					where id_pedido='$id_act_pedido'";
 					$resultadoDetalle=mysqli_query($conexion,$queryRegistrosDetalle);
 
@@ -104,7 +104,7 @@
 
 					//query para obtener el id de la primera promocion de la venta
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos las promociones agregadas
-					$queryPrimerIdPromocion="SELECT id_pedido_promocion FROM tbl_pedidos_promociones
+					$queryPrimerIdPromocion="SELECT id_pedido_promocion FROM TBL_pedidos_promociones
 					where id_pedido='$id_act_pedido' LIMIT 1";
 					$resultadoPrimerIdPromocion=mysqli_query($conexion,$queryPrimerIdPromocion);
 
@@ -117,7 +117,7 @@
 
 					//query para obtener la cantidad de promociones que corresponden a la venta seleccionada para editar
 					//el valor obtenido será utilizado en el ciclo de abajo como limite 
-					$queryRegistrosPromocion="SELECT COUNT(*) as contador FROM tbl_pedidos_promociones 
+					$queryRegistrosPromocion="SELECT COUNT(*) as contador FROM TBL_pedidos_promociones 
 					where id_pedido='$id_act_pedido'";
 					$resultadoDetalle=mysqli_query($conexion,$queryRegistrosPromocion);
 
@@ -130,8 +130,8 @@
 					//query para obtener y mostrar los datos del descuento
 					//estos datos se mostrarán tanto en la parte de arriba con el descuento seleccionado como en la parte final
 					//con el monto de descuento y el porcentaje del mismo
-					$queryDescuento="SELECT d.nom_descuento, d.porcentaje_descuento, pd.id_pedidos, pd.total_descontado FROM tbl_pedido_descuentos pd
-					inner join tbl_descuentos d on d.id_descuentos=pd.id_descuentos
+					$queryDescuento="SELECT d.nom_descuento, d.porcentaje_descuento, pd.id_pedidos, pd.total_descontado FROM TBL_pedido_descuentos pd
+					inner join TBL_descuentos d on d.id_descuentos=pd.id_descuentos
 					where pd.id_pedidos='$id_act_pedido'";
 					$resultadoDetalle=mysqli_query($conexion,$queryDescuento);
 					if($resultadoDetalle -> num_rows >0){
@@ -189,7 +189,7 @@
 						<label class="color-label">Estado de Pedido</label>
 						<select class="form-control" name="estado_pedido" id="estado_pedido" >
 							<?php
-							$SQL="SELECT * FROM tbl_estado_pedido where id_estado_pedido<=2";
+							$SQL="SELECT * FROM TBL_estado_pedido where id_estado_pedido<=2";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
@@ -247,7 +247,7 @@
 							//Estos datos se imprimirán en la tabla donde aparecen todos los productos correspondientes a la factura
 							$queryDetalle="SELECT p.nom_producto, dp.id_detalle_pedido, dp.id_producto,dp.cantidad,dp.precio_venta
 							FROM TBL_detalle_pedido dp
-							inner join tbl_producto p on p.id_producto=dp.id_producto
+							inner join TBL_producto p on p.id_producto=dp.id_producto
 							where dp.id_detalle_pedido='$id_act_detalle' LIMIT 1";
 							$resultadoDetalle=mysqli_query($conexion,$queryDetalle);
 							
@@ -315,9 +315,9 @@
 							//Estos datos se imprimirán en la tabla donde aparecen todos los productos correspondientes a la factura
 							$queryPromocion="SELECT pp.id_pedido_promocion, pp.id_pedido_promocion, pr.nom_promocion,pp.id_pedido,
 							pp.cantidad,pp.precio_venta,pp.id_promocion
-							FROM tbl_pedidos_promociones pp
-							inner join tbl_pedidos p on p.id_pedido=pp.id_pedido
-							inner join tbl_promociones pr on pr.id_promociones=pp.id_promocion
+							FROM TBL_pedidos_promociones pp
+							inner join TBL_pedidos p on p.id_pedido=pp.id_pedido
+							inner join TBL_promociones pr on pr.id_promociones=pp.id_promocion
 							where pp.id_pedido_promocion='$id_prom_detalle' LIMIT 1";
 							$resultadoDetalle=mysqli_query($conexion,$queryPromocion);
 							

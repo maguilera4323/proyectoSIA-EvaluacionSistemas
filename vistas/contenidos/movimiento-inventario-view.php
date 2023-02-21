@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=5";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=5";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -77,7 +77,7 @@ if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_insumos.nom_insumo LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_insumos.nom_insumo LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -110,16 +110,16 @@ include ("./cone.php");
 //si se cumple la condicion se mostrará la tabla completa
 if($id_insumo==''){
 	$SQL="SELECT iv.id_cardex, i.id_insumos, i.nom_insumo, iv.cant_movimiento,iv.tipo_movimiento, iv.fecha_movimiento,
-	iv.id_usuario, u.usuario,iv.comentario FROM tbl_movi_inventario iv 
-		inner JOIN tbl_insumos i ON i.id_insumos = iv.id_insumos
-		inner JOIN tbl_usuarios u ON u.id_usuario = iv.id_usuario
+	iv.id_usuario, u.usuario,iv.comentario FROM TBL_movi_inventario iv 
+		inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumos
+		inner JOIN TBL_usuarios u ON u.id_usuario = iv.id_usuario
 		order by iv.id_cardex DESC
 	$where";
 }else{
 	$SQL="SELECT iv.id_cardex, i.id_insumos, i.nom_insumo, iv.cant_movimiento,iv.tipo_movimiento, iv.fecha_movimiento,
-		iv.id_usuario, u.usuario,iv.comentario FROM tbl_movi_inventario iv 
-		inner JOIN tbl_insumos i ON i.id_insumos = iv.id_insumos
-		inner JOIN tbl_usuarios u ON u.id_usuario = iv.id_usuario
+		iv.id_usuario, u.usuario,iv.comentario FROM TBL_movi_inventario iv 
+		inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumos
+		inner JOIN TBL_usuarios u ON u.id_usuario = iv.id_usuario
 		where iv.id_insumos='$id_insumo'";
 }
 

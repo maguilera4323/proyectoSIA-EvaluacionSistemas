@@ -9,7 +9,7 @@ const PASS="sistemas.2022";/* */
 //datos de conexion al servidor de correo
 const HOST_SMTP='smtp.gmail.com';
 const USER_SMTP="soportecitycoffe@gmail.com";
-const CLAVE_SMTP="mxyjckpwvpobrijz";
+const CLAVE_SMTP="auipcxsessbbvniz";
 const PUERTO_SMTP=465;
 
 

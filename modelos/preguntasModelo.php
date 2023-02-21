@@ -5,7 +5,7 @@
 	class preguntasModelo extends mainModel{
 
 		protected static function agregar_pregunta_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_preguntas(pregunta,creado_por,fecha_creacion)
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_preguntas(pregunta,creado_por,fecha_creacion)
 			VALUES(?,?,?)");
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['creado']);
@@ -15,7 +15,7 @@
 		}
 
 		protected static function actualizar_pregunta_modelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("UPDATE tbl_preguntas SET pregunta=?,
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_preguntas SET pregunta=?,
 			modificado_por=?, fecha_modificacion=? WHERE id_pregunta=?");
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['modif']);
@@ -26,7 +26,7 @@
 		}
 
 		 protected static function eliminar_pregunta_modelo($id){
-				$sql=mainModel::conectar()->prepare("DELETE FROM tbl_preguntas where id_pregunta=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_preguntas where id_pregunta=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

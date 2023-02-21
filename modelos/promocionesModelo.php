@@ -7,7 +7,7 @@
 		/*--------- Modelo agregar promocion ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_promociones_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_promociones(nom_promocion,fech_ini_promo,
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_promociones(nom_promocion,fech_ini_promo,
 			fech_fin_promo,id_estado_promocio,precio_promocion)
 			VALUES(?,?,?,?,?)");
 
@@ -25,7 +25,7 @@
 		/*--------- Modelo actualizar promocion ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_promociones_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE tbl_promociones SET nom_promocion=?,fech_ini_promo=?,fech_fin_promo=?,
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_promociones SET nom_promocion=?,fech_ini_promo=?,fech_fin_promo=?,
 			id_estado_promocio=?, precio_promocion=? WHERE id_promociones=?");
 
 			$sql->bindParam(1,$dato['promo']);
@@ -40,7 +40,7 @@
 
 		 protected static function eliminar_promociones_modelo($accion,$id){
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM tbl_promociones where id_promociones=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_promociones where id_promociones=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

@@ -107,7 +107,7 @@ class MYPDF extends TCPDF{
         // filtro de preguntas
         $filtropreguntas=($_POST['filtropreguntas']);
 
-        $sqlTrabajadores = ("SELECT * FROM tbl_preguntas WHERE pregunta LIKE'%".$filtropreguntas."%'");
+        $sqlTrabajadores = ("SELECT * FROM TBL_preguntas WHERE pregunta LIKE'%".$filtropreguntas."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);

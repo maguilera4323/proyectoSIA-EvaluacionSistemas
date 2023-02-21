@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=12";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -53,7 +53,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_detalle_compra.id_detalle_compra LIKE'%".$busqueda."%' OR id_detalle_compra  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_detalle_compra.id_detalle_compra LIKE'%".$busqueda."%' OR id_detalle_compra  LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -93,8 +93,8 @@ if(isset($_GET['enviar'])){
 		//variable que contiene el id de la compra a editar
 		$id_pedido = explode('/',$url_completa)[5]; 
 
-				$SQL="SELECT dp.id_detalle_pedido, p.nom_producto, dp.cantidad, dp.precio_venta FROM tbl_detalle_pedido dp
-						inner join tbl_producto p on p.id_producto=dp.id_producto
+				$SQL="SELECT dp.id_detalle_pedido, p.nom_producto, dp.cantidad, dp.precio_venta FROM TBL_detalle_pedido dp
+						inner join TBL_producto p on p.id_producto=dp.id_producto
 						where dp.id_pedido='$id_pedido'";			
 				$dato = mysqli_query($conexion, $SQL);
 
@@ -141,8 +141,8 @@ if(isset($_GET['enviar'])){
 		
 		<?php
 
-				$SQLProm="SELECT pp.id_pedido_promocion, pr.nom_promocion, pp.cantidad, pp.precio_venta FROM tbl_pedidos_promociones pp
-						inner join tbl_promociones pr on pr.id_promociones=pp.id_promocion
+				$SQLProm="SELECT pp.id_pedido_promocion, pr.nom_promocion, pp.cantidad, pp.precio_venta FROM TBL_pedidos_promociones pp
+						inner join TBL_promociones pr on pr.id_promociones=pp.id_promocion
 						where pp.id_pedido='$id_pedido'";			
 				$dato = mysqli_query($conexion, $SQLProm);
 

@@ -1,7 +1,7 @@
 <?php
 	include("../cone.php");
 
-	$query="SELECT * FROM tbl_producto";
+	$query="SELECT * FROM TBL_producto";
 	$resultado=mysqli_query($conexion,$query);
 
 	$json=array();

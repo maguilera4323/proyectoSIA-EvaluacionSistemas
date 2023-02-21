@@ -26,8 +26,8 @@
 		";
 		
 		$tipo="SELECT i.nom_insumo, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida
-		FROM tbl_insumos i 
-	   inner JOIN tbl_categoria_produ c ON c.id_categoria = i.id_categoria";
+		FROM TBL_insumos i 
+	   inner JOIN TBL_categoria_produ c ON c.id_categoria = i.id_categoria";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

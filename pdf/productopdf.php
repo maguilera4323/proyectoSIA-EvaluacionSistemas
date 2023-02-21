@@ -110,8 +110,8 @@ class MYPDF extends TCPDF{
         // filtro de producto
         $filtroproducto=($_POST['filtroproducto']);
 
-        $sqlTrabajadores = ("SELECT p.nom_producto,tp.tipo_producto,p.des_produ,p.precio_produ FROM tbl_producto p
-                inner join tbl_tipo_producto tp on tp.id_tipo_produ=p.id_tipo_produ
+        $sqlTrabajadores = ("SELECT p.nom_producto,tp.tipo_producto,p.des_produ,p.precio_produ FROM TBL_producto p
+                inner join TBL_tipo_producto tp on tp.id_tipo_produ=p.id_tipo_produ
         WHERE p.nom_producto LIKE'%".$filtroproducto."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");

@@ -112,9 +112,9 @@ class MYPDF extends TCPDF{
         $filtropermisos=($_POST['filtropermisos']);
 
         $sqlTrabajadores = ("SELECT p.id_rol, r.rol, o.objeto, p.permiso_insercion,p.permiso_actualizacion,
-                                p.permiso_eliminacion, p.permiso_consulta,o.id_objeto FROM tbl_permisos p
-                                inner JOIN tbl_ms_roles r ON r.id_rol = p.id_rol
-				inner JOIN tbl_objetos o ON o.id_objeto = p.id_objeto
+                                p.permiso_eliminacion, p.permiso_consulta,o.id_objeto FROM TBL_permisos p
+                                inner JOIN TBL_ms_roles r ON r.id_rol = p.id_rol
+				inner JOIN TBL_objetos o ON o.id_objeto = p.id_objeto
                                 WHERE r.rol  LIKE'%".$filtropermisos."%'");			
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");

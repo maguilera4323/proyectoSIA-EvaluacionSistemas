@@ -7,7 +7,7 @@
 		/*--------- Modelo agregar producto ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_producto_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_producto(nom_producto,id_tipo_produ,
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_producto(nom_producto,id_tipo_produ,
 			des_produ,precio_produ,foto_produ)
 			VALUES(?,?,?,?,?)");
 
@@ -27,7 +27,7 @@
 		/*--------- Modelo actualizar producto ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_producto_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE tbl_producto SET nom_producto=?,id_tipo_produ=?,des_produ=?,
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_producto SET nom_producto=?,id_tipo_produ=?,des_produ=?,
 			precio_produ=?, foto_produ=? WHERE id_producto=?");
 
 			$sql->bindParam(1,$dato['nombre']);
@@ -43,7 +43,7 @@
 
 		protected static function datos_producto_modelo($tipo,$id){
 			if($tipo=='unico'){
-				$sql=mainModel::conectar()->prepare("SELECT * FROM tbl_producto where id_producto=?");
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_producto where id_producto=?");
 				$sql->bindParam(1,$id);
 			}
 			$sql->execute();
@@ -53,7 +53,7 @@
 
 		 protected static function eliminar_producto_modelo($accion,$id){
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM tbl_producto where id_producto=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_producto where id_producto=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

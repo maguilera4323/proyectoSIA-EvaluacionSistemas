@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=11";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=11";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -63,7 +63,7 @@
 
 
 		if (isset($_GET['busqueda'])){
-			$where="WHERE tbl_ms_roles.rol LIKE'%".$busqueda."%'";
+			$where="WHERE TBL_ms_roles.rol LIKE'%".$busqueda."%'";
 		}
 	}
 ?>
@@ -95,9 +95,9 @@
 		<?php
 			include ("./cone.php");              
 			$SQL="SELECT r.id_rol,r.rol, o.objeto, p.permiso_insercion,p.permiso_actualizacion,
-			p.permiso_eliminacion, p.permiso_consulta,o.id_objeto FROM tbl_permisos p
-					inner JOIN tbl_ms_roles r ON r.id_rol = p.id_rol
-					inner JOIN tbl_objetos o ON o.id_objeto = p.id_objeto;
+			p.permiso_eliminacion, p.permiso_consulta,o.id_objeto FROM TBL_permisos p
+					inner JOIN TBL_ms_roles r ON r.id_rol = p.id_rol
+					inner JOIN TBL_objetos o ON o.id_objeto = p.id_objeto;
 			$where";
 			$dato = mysqli_query($conexion, $SQL);
 
@@ -287,7 +287,7 @@
 				<select class="form-control" name="rol_nuevo" required>
 					<option value="" selected="" disabled="">Seleccione una opción</option>
 					<?php
-					$SQL="SELECT * FROM tbl_ms_roles";
+					$SQL="SELECT * FROM TBL_ms_roles";
 						$dato = mysqli_query($conexion, $SQL);
 			
 						if($dato -> num_rows >0){
@@ -303,7 +303,7 @@
 				<select class="form-control" name="objeto_nuevo" required>
 					<option value="" selected="" disabled="">Seleccione una opción</option>
 					<?php
-					$SQL="SELECT * FROM tbl_objetos";
+					$SQL="SELECT * FROM TBL_objetos";
 						$dato = mysqli_query($conexion, $SQL);
 			
 						if($dato -> num_rows >0){

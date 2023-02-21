@@ -40,7 +40,7 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('soportecitycoffe@gmail.com', 'City Coffee');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffee');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
@@ -162,7 +162,7 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('soportecitycoffe@gmail.com', 'City Coffe');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffe');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
@@ -207,7 +207,7 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('soportecitycoffe@gmail.com', 'City Coffe');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffe');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content

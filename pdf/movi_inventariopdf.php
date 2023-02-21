@@ -113,9 +113,9 @@ class MYPDF extends TCPDF{
         $filtromovi_inventario=($_POST['filtromovi_inventario']);
 
         $sqlmovi_inventario = ("SELECT i.id_insumos,i.nom_insumo, m.cant_movimiento,m.tipo_movimiento,m.fecha_movimiento,
-        u.usuario,m.comentario FROM tbl_movi_inventario m
-        inner join tbl_insumos i on i.id_insumos=m.id_insumos
-        inner join tbl_usuarios u on u.id_usuario=m.id_usuario
+        u.usuario,m.comentario FROM TBL_movi_inventario m
+        inner join TBL_insumos i on i.id_insumos=m.id_insumos
+        inner join TBL_usuarios u on u.id_usuario=m.id_usuario
         WHERE i.nom_insumo LIKE'%".$filtromovi_inventario."%'");
         
 

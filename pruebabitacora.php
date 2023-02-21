@@ -5,7 +5,7 @@
 class Bitacora extends mainModel {
 
     static function guardar_bitacora($datos){
-        $sql=mainModel::conectar()->prepare("INSERT INTO tbl_bitacora(id_objeto, fecha, id_usuario, accion, descripcion)
+        $sql=mainModel::conectar()->prepare("INSERT INTO TBL_bitacora(id_objeto, fecha, id_usuario, accion, descripcion)
         VALUES (:id_objeto,:fecha,:id_usuario,:accion,:descripcion)" );
         $sql->bindParam(":id_objeto",$datos['id_objeto']);
         $sql->bindParam(":fecha",$datos['fecha']);

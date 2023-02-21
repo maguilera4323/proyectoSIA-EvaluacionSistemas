@@ -114,8 +114,8 @@ class MYPDF extends TCPDF{
     $filtroinsumo=($_POST['filtroinsumo']);
 
     $sqlTrabajadores = ("SELECT i.nom_insumo, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida
-         FROM tbl_insumos i 
-        inner JOIN tbl_categoria_produ c ON c.id_categoria = i.id_categoria
+         FROM TBL_insumos i 
+        inner JOIN TBL_categoria_produ c ON c.id_categoria = i.id_categoria
          WHERE i.nom_insumo LIKE'%".$filtroinsumo."%'");
     
     //$sqlTrabajadores = ("SELECT * FROM trabajadores");

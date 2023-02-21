@@ -46,7 +46,7 @@ class parametroControlador extends parametroModelo
 			exit();
 		}
 
-		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT parametro FROM tbl_ms_parametros WHERE parametro='$nom_parametro'");
+		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT parametro FROM TBL_ms_parametros WHERE parametro='$nom_parametro'");
 			if($check_parametro->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -177,7 +177,7 @@ class parametroControlador extends parametroModelo
 			$id=mainModel::limpiar_cadena(($_POST['id_parametro_del']));
 
 		//verifica que el parametro si exista en el sistema
-		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT id_parametro FROM tbl_ms_parametros
+		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT id_parametro FROM TBL_ms_parametros
 		WHERE id_parametro='$id'");
 		if($check_parametro->rowCount()<=0){
 			$alerta=[

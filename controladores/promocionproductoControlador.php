@@ -163,7 +163,7 @@ class promocionproductoControlador extends promocionproductoModelo
 			$id=mainModel::limpiar_cadena(($_POST['promocionproducto_del']));
 
 		//verifica que el promocionproducto si exista en el sistema
-		$check_promocionproducto=mainModel::ejecutar_consulta_simple("SELECT id_promociones_productos FROM tbl_promociones_productos
+		$check_promocionproducto=mainModel::ejecutar_consulta_simple("SELECT id_promociones_productos FROM TBL_promociones_productos
 		WHERE id_promociones_productos='$id'");
 		if($check_promocionproducto->rowCount()<=0){
 			$alerta=[

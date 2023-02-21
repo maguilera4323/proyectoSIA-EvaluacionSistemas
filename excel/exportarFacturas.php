@@ -35,9 +35,9 @@
 		
 		$tipo="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,p.fech_facturacion,
 					p.nom_cliente,p.dni_cliente, p.ISV, p.porcentaje_isv, p.sitio_entrega, f.forma_pago, p.sub_total,
-					e.estado_pedido FROM tbl_pedidos p
-				inner join tbl_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
-				inner join tbl_forma_pago f on p.id_forma_pago=f.id_forma_pago
+					e.estado_pedido FROM TBL_pedidos p
+				inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
+				inner join TBL_forma_pago f on p.id_forma_pago=f.id_forma_pago
 				ORDER BY p.id_pedido DESC";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){

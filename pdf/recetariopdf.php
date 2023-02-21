@@ -109,9 +109,9 @@ class MYPDF extends TCPDF{
         // filtro de recetario
         $filtrorecetario=($_POST['filtrorecetario']);
 
-        $sqlTrabajadores = ("SELECT p.nom_producto, i.id_insumos, i.nom_insumo, r.id_recetario, r.cant_insumo FROM tbl_recetario r
-                                inner JOIN tbl_producto p ON p.id_producto = r.id_producto
-                                inner JOIN tbl_insumos i ON i.id_insumos = r.id_insumo
+        $sqlTrabajadores = ("SELECT p.nom_producto, i.id_insumos, i.nom_insumo, r.id_recetario, r.cant_insumo FROM TBL_recetario r
+                                inner JOIN TBL_producto p ON p.id_producto = r.id_producto
+                                inner JOIN TBL_insumos i ON i.id_insumos = r.id_insumo
                                  WHERE p.nom_producto LIKE'%".$filtrorecetario."%'");
         
 

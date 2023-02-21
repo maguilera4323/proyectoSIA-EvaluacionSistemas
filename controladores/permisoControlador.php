@@ -21,7 +21,7 @@ class permisoControlador extends permisoModelo
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_nuevo']));
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_nuevo']));
 
-		$query=mainModel::ejecutar_consulta_simple("SELECT tipo_objeto FROM tbl_objetos WHERE id_objeto='$nom_objeto'");
+		$query=mainModel::ejecutar_consulta_simple("SELECT tipo_objeto FROM TBL_objetos WHERE id_objeto='$nom_objeto'");
 		foreach ($query as $fila) {
 			$tipo_objeto=$fila['tipo_objeto'];
 		}
@@ -173,7 +173,7 @@ class permisoControlador extends permisoModelo
 			$valor='';
 
 		//verifica que exista el objeto y el rol del permiso en el sistema
-		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT id_objeto FROM tbl_objetos
+		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT id_objeto FROM TBL_objetos
 		WHERE id_objeto='$idobj'");
 		if($check_objeto->rowCount()<=0){
 			$alerta=[
@@ -186,7 +186,7 @@ class permisoControlador extends permisoModelo
 			exit();
 		}
 
-		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM tbl_ms_roles
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM TBL_ms_roles
 		WHERE id_rol='$idrol'");
 		if($check_rol->rowCount()<=0){
 			$alerta=[

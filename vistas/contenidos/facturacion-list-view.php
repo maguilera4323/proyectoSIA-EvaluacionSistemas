@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=12";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -76,7 +76,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_pedidos.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_pedidos.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -119,8 +119,8 @@ if(isset($_GET['enviar'])){
 		
 				$SQL="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
 							p.nom_cliente,p.dni_cliente,
-							e.estado_pedido FROM tbl_pedidos p
-						inner join tbl_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
+							e.estado_pedido FROM TBL_pedidos p
+						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
 						ORDER BY p.id_pedido DESC
 						$where";						
 				$dato = mysqli_query($conexion, $SQL);

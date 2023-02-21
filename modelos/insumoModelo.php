@@ -5,14 +5,17 @@
 	class insumoModelo extends mainModel{
 
 		/*--------- Modelo agregar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function agregar_insumo_modelo($datos){
-			$sql=mainModel::conectar()->prepare("CALL proc_insert_insumos (?,?,?,?,?);");
+		protected static function agregar_insumo_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_insumos(nom_insumo,id_categoria,
+			cant_max,cant_min,unidad_medida)
+			VALUES(?,?,?,?,?)");
 
-			$sql->bindParam(1,$datos['nombre'], PDO::PARAM_STR, 4000);
-			$sql->bindParam(2,$datos['cat'], PDO::PARAM_STR, 4000);
-			$sql->bindParam(3,$datos['cantmax'], PDO::PARAM_STR, 4000);
-			$sql->bindParam(4,$datos['cantmin'], PDO::PARAM_STR, 4000);
-			$sql->bindParam(5,$datos['unidad'], PDO::PARAM_STR, 4000);
+			$sql->bindParam(1,$datos['nombre']);
+			$sql->bindParam(2,$datos['cat']);
+			$sql->bindParam(3,$datos['cantmax']);
+			$sql->bindParam(4,$datos['cantmin']);
+			$sql->bindParam(5,$datos['unidad']);
 			$sql->execute();
 			return $sql;
 
@@ -20,8 +23,9 @@
 		}
 
 		protected static function agregar_inv_insumo_modelo($datos){
-			$sql=mainModel::conectar()->prepare("CALL proc_insert_inventario (?);");
-			$sql->bindParam(1,$datos['cant'], PDO::PARAM_STR, 4000);
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_inventario(cant_existencia)
+			VALUES(?)");
+			$sql->bindParam(1,$datos['cant']);
 			$sql->execute();
 			return $sql;						
 		}
@@ -31,7 +35,8 @@
 		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_insumo_modelo($datos,$id)
 		{
-			$sql=mainModel::conectar()->prepare("CALL proc_update_insumos (?,?,?,?,?,?);");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_insumos SET nom_insumo=?,id_categoria=?,cant_max=?,
+			cant_min=?, unidad_medida=? WHERE id_insumos=?");
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['cat']);
 			$sql->bindParam(3,$datos['cantmax']);
@@ -42,9 +47,17 @@
 			return $sql;
 		}
 
+		protected static function datos_insumo_modelo($tipo,$id){
+			if($tipo=='unico'){
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_insumos where id_insumos=?");
+				$sql->bindParam(1,$id);
+			}
+			$sql->execute();
+			return $sql;
+		}
 
 		 protected static function eliminar_insumo_modelo($id){
-				$sql=mainModel::conectar()->prepare("CALL proc_delete_insumos (?);");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_insumos where id_insumos=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

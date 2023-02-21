@@ -23,8 +23,8 @@
 				<tbody>
 		";
 		
-		$sql_inventario = ("SELECT iv.id_insumo,i.nom_insumo, iv.cant_existencia FROM tbl_inventario iv
-        inner join tbl_insumos i on i.id_insumos=iv.id_insumo");
+		$sql_inventario = ("SELECT iv.id_insumo,i.nom_insumo, iv.cant_existencia FROM TBL_inventario iv
+        inner join TBL_insumos i on i.id_insumos=iv.id_insumo");
         
 
         $query = mysqli_query($conexion, $sql_inventario);

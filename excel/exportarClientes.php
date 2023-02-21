@@ -24,7 +24,7 @@
 				<tbody>
 		";
 		
-		$tipo="SELECT * FROM tbl_Clientes";
+		$tipo="SELECT * FROM TBL_Clientes";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

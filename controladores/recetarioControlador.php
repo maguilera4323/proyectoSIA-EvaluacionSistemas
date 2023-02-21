@@ -163,7 +163,7 @@ class recetarioControlador extends recetarioModelo
 			$id=mainModel::limpiar_cadena(($_POST['recetario_del']));
 
 		//verifica que el recetario si exista en el sistema
-		$check_recetario=mainModel::ejecutar_consulta_simple("SELECT id_recetario FROM tbl_recetario
+		$check_recetario=mainModel::ejecutar_consulta_simple("SELECT id_recetario FROM TBL_recetario
 		WHERE id_recetario='$id'");
 		if($check_recetario->rowCount()<=0){
 			$alerta=[

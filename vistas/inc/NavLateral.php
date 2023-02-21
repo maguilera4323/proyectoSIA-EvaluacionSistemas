@@ -2,7 +2,7 @@
 include ("./cone.php"); 
 	$rol=$_SESSION['id_rol'];
 	//query para extraer los tipos de objeto con los que cuenta el sistema actualmente
-	$sql="SELECT tipo_objeto FROM tbl_permisos 
+	$sql="SELECT tipo_objeto FROM TBL_permisos 
 	where id_rol='$rol'";
 	$dato = mysqli_query($conexion, $sql); 
 

@@ -109,8 +109,8 @@ class MYPDF extends TCPDF{
         // filtro de INVENTARIO
         $filtroinventario=($_POST['filtroinventario']);
 
-        $sqlinventario = ("SELECT iv.id_insumo,i.nom_insumo,iv.cant_existencia,i.unidad_medida FROM tbl_inventario iv
-                inner join tbl_insumos i on i.id_insumos=iv.id_insumo
+        $sqlinventario = ("SELECT iv.id_insumo,i.nom_insumo,iv.cant_existencia,i.unidad_medida FROM TBL_inventario iv
+                inner join TBL_insumos i on i.id_insumos=iv.id_insumo
          WHERE i.nom_insumo LIKE'%".$filtroinventario."%'");
         
 

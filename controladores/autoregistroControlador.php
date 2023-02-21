@@ -69,7 +69,7 @@ class autoregistroControlador extends autoregistroModelo
 			/*== Comprobando email ==*/
 			if($Correo!=""){
 				if(filter_var($Correo,FILTER_VALIDATE_EMAIL)){
-					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM tbl_usuarios WHERE correo_electronico='$Correo'");
+					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM TBL_usuarios WHERE correo_electronico='$Correo'");
 					if($check_correo->rowCount()>0){
 						$alerta=[
 							"Alerta"=>"simple",
@@ -108,7 +108,7 @@ class autoregistroControlador extends autoregistroModelo
 
 
 			/*== Comprobando usuario ==*/
-			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM tbl_usuarios WHERE usuario='$Usuario'");
+			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM TBL_usuarios WHERE usuario='$Usuario'");
 			if($check_user->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",

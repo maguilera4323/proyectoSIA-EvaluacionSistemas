@@ -59,7 +59,7 @@ class usuarioControlador extends usuarioModelo
 			/*== Comprobando email ==*/
 			if($Correo!=""){
 				if(filter_var($Correo,FILTER_VALIDATE_EMAIL)){
-					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM tbl_usuarios WHERE correo_electronico='$Correo'");
+					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM TBL_usuarios WHERE correo_electronico='$Correo'");
 					if($check_correo->rowCount()>0){
 						$alerta=[
 							"Alerta"=>"simple",
@@ -108,7 +108,7 @@ class usuarioControlador extends usuarioModelo
 
 
 			/*== Comprobando usuario ==*/
-			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM tbl_usuarios WHERE usuario='$Usuario'");
+			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM TBL_usuarios WHERE usuario='$Usuario'");
 			if($check_user->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -424,7 +424,7 @@ class usuarioControlador extends usuarioModelo
 		}
 
 		//verifica que el usuario si exista en el sistema
-		$check_usuario=mainModel::ejecutar_consulta_simple("SELECT id_usuario FROM tbl_usuarios 
+		$check_usuario=mainModel::ejecutar_consulta_simple("SELECT id_usuario FROM TBL_usuarios 
 		WHERE id_usuario='$id'");
 		if($check_usuario->rowCount()<=0){
 			$alerta=[
@@ -439,7 +439,7 @@ class usuarioControlador extends usuarioModelo
 
 		//se verifica el valor del primer ingreso debido a que un usuario que ha sido creado y no ha ingresado al sistema
 		//aun no ha configurado sus preguntas de seguridad
-		$verificarPrimerIngreso=mainModel::ejecutar_consulta_simple("SELECT * FROM tbl_usuarios 
+		$verificarPrimerIngreso=mainModel::ejecutar_consulta_simple("SELECT * FROM TBL_usuarios 
 		WHERE id_usuario='$id'");
 		foreach($verificarPrimerIngreso as $fila){
 			//se extrae el valor de primer_ingreso=1 si el usuario ingresó al sistema y 0 si no ha ingresado

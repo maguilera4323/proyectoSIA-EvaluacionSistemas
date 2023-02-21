@@ -8,7 +8,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=12";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -48,9 +48,9 @@
 					
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
-					$query="SELECT p.nom_proveedor,p.id_Proveedores, c.id_estado_compra, u.usuario,c.fech_compra,c.total_compra FROM tbl_compras c
-					inner join tbl_Proveedores p on p.id_Proveedores=c.id_proveedor
-					inner join tbl_usuarios u on u.id_usuario=c.id_usuario
+					$query="SELECT p.nom_proveedor,p.id_Proveedores, c.id_estado_compra, u.usuario,c.fech_compra,c.total_compra FROM TBL_compras c
+					inner join TBL_Proveedores p on p.id_Proveedores=c.id_proveedor
+					inner join TBL_usuarios u on u.id_usuario=c.id_usuario
 					where c.id_compra='$id_act_compra'";
 					$resultado=mysqli_query($conexion,$query);
 
@@ -74,7 +74,7 @@
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos
-					$queryPrimerIdDetalle="SELECT id_detalle_compra FROM tbl_detalle_compra 
+					$queryPrimerIdDetalle="SELECT id_detalle_compra FROM TBL_detalle_compra 
 					where id_compra='$id_act_compra' LIMIT 1";
 					$resultadoPrimerIdDetalle=mysqli_query($conexion,$queryPrimerIdDetalle);
 
@@ -87,7 +87,7 @@
 
 					//query para obtener la cantidad de insumos que corresponden a la compra seleccionada para editar
 					//el valor obtenido será utilizado en el ciclo de abajo como limite 
-					$queryRegistrosDetalle="SELECT COUNT(*) as contador FROM tbl_detalle_compra 
+					$queryRegistrosDetalle="SELECT COUNT(*) as contador FROM TBL_detalle_compra 
 					where id_compra='$id_act_compra'";
 					$resultadoDetalle=mysqli_query($conexion,$queryRegistrosDetalle);
 
@@ -124,7 +124,7 @@
 						<label class="color-label">Estado de Compra</label>
 						<select class="form-control" name="estado_compra" id="estado_compra" required>
 							<?php
-							$SQL="SELECT * FROM tbl_estado_compras where id_estado_compra<3";
+							$SQL="SELECT * FROM TBL_estado_compras where id_estado_compra<3";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
@@ -176,8 +176,8 @@
 							//query para obtener los datos de TBL_detalle_compra
 							//Estos datos se imprimirán en la tabla
 							$queryDetalle="SELECT d.id_detalle_compra, i.id_insumos,i.nom_insumo,d.cantidad_comprada,d.precio_costo,
-							d.fecha_caducidad FROM tbl_detalle_compra d
-							inner join tbl_insumos i on i.id_insumos=d.id_insumos
+							d.fecha_caducidad FROM TBL_detalle_compra d
+							inner join TBL_insumos i on i.id_insumos=d.id_insumos
 							where d.id_detalle_compra='$id_act_detalle' LIMIT 1";
 							$resultadoDetalle=mysqli_query($conexion,$queryDetalle);
 							

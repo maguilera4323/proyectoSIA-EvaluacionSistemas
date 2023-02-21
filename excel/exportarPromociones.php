@@ -26,8 +26,8 @@
 		";
 		
 		$tipo="SELECT p.nom_promocion, p.fech_ini_promo, p.fech_fin_promo,
-		e.nom_estado_promociones, p.precio_promocion FROM tbl_promociones p
-		inner join tbl_estado_promociones e on p.id_estado_promocio=e.id_estado_promociones";
+		e.nom_estado_promociones, p.precio_promocion FROM TBL_promociones p
+		inner join TBL_estado_promociones e on p.id_estado_promocio=e.id_estado_promociones";
 		$resultado=mysqli_query($conexion, $tipo);
 		if($resultado -> num_rows >0){
             while($fila=mysqli_fetch_array($resultado)){

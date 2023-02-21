@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=6";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=6";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -38,7 +38,7 @@
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
 
-			$SQL_parametro="SELECT valor FROM tbl_ms_parametros where parametro='ADMIN_DIAS_VIGENCIA'";
+			$SQL_parametro="SELECT valor FROM TBL_ms_parametros where parametro='ADMIN_DIAS_VIGENCIA'";
 			$dato_parametro = mysqli_query($conexion, $SQL_parametro);
 
 			if($dato_parametro -> num_rows >0){
@@ -74,7 +74,7 @@ if(isset($_GET['enviar'])){
 
 
 	if (isset($_GET['busqueda'])){
-		$where="WHERE tbl_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
 	}
 }
 ?>
@@ -108,8 +108,8 @@ if(isset($_GET['enviar'])){
 				<?php
 					include ("./cone.php");              
 					$SQL="SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.id_rol,r.rol,u.correo_electronico,
-					u.creado_por FROM tbl_usuarios u
-					inner JOIN tbl_ms_roles r ON r.id_rol = u.id_rol
+					u.creado_por FROM TBL_usuarios u
+					inner JOIN TBL_ms_roles r ON r.id_rol = u.id_rol
 					$where";
 					$dato = mysqli_query($conexion, $SQL);
 
@@ -204,7 +204,7 @@ if(isset($_GET['enviar'])){
 													<select class="form-control" name="id_rol_actu" id="id_rol_actu">
 													<?php
 														include ("./cone.php"); 
-														$tipo="SELECT * FROM tbl_ms_roles";
+														$tipo="SELECT * FROM TBL_ms_roles";
 														$resultado=mysqli_query($conexion, $tipo);
 															while ($valores = mysqli_fetch_array($resultado)){
 															//validación para obtener el valor guardado en la base de datos
@@ -350,7 +350,7 @@ if(isset($_GET['enviar'])){
 							<select class="form-control" name="rol_nuevo" required>
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<?php
-								$SQL="SELECT * FROM tbl_ms_roles";
+								$SQL="SELECT * FROM TBL_ms_roles";
 									$dato = mysqli_query($conexion, $SQL);
 						
 									if($dato -> num_rows >0){

@@ -28,7 +28,7 @@ if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_Producto.nom_producto LIKE'%".$busqueda."%' OR id_tipo_produ LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_Producto.nom_producto LIKE'%".$busqueda."%' OR id_tipo_produ LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -63,8 +63,8 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT p.id_producto,p.nom_producto,p.id_tipo_produ,tp.tipo_producto,p.des_produ,p.precio_produ, p.foto_produ FROM tbl_producto p
-	INNER JOIN tbl_tipo_producto tp ON tp.id_tipo_produ=p.id_tipo_produ;
+$SQL="SELECT p.id_producto,p.nom_producto,p.id_tipo_produ,tp.tipo_producto,p.des_produ,p.precio_produ, p.foto_produ FROM TBL_producto p
+	INNER JOIN TBL_tipo_producto tp ON tp.id_tipo_produ=p.id_tipo_produ;
 $where";
 $dato = mysqli_query($conexion, $SQL);
 
@@ -107,7 +107,7 @@ if($dato -> num_rows >0){
 									<select class="form-control" name="id_tipo_producto_actu" id="id_tipo_producto_act">
 										<?php
 										include ("./cone.php");   
-										$tipo="SELECT * FROM tbl_tipo_producto";
+										$tipo="SELECT * FROM TBL_tipo_producto";
 										$resultado=mysqli_query($conexion, $tipo);
 											while ($valores = mysqli_fetch_array($resultado)){
 											//validación para obtener el valor guardado en la base de datos
@@ -204,7 +204,7 @@ if($dato -> num_rows >0){
 								<option value="0">Seleccione una opción</option>
 								<?php
 								include ("./cone.php");   
-								$tipo="SELECT * FROM tbl_tipo_producto";
+								$tipo="SELECT * FROM TBL_tipo_producto";
 								$resultado=mysqli_query($conexion, $tipo);
 								while ($valores = mysqli_fetch_array($resultado)){
 									echo '<option value="'.$valores['id_tipo_produ'].'">'.$valores['tipo_producto'].'</option>';

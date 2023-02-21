@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT permiso_consulta FROM tbl_permisos where id_rol='$id_rol' and id_objeto=4";
+			$SQL="SELECT permiso_consulta FROM TBL_permisos where id_rol='$id_rol' and id_objeto=4";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -68,7 +68,7 @@ if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_inventario.id_insumo LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_inventario.id_insumo LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -99,8 +99,8 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT iv.id_insumo, i.nom_insumo, iv.cant_existencia,i.unidad_medida FROM tbl_inventario iv
-inner JOIN tbl_insumos i ON i.id_insumos = iv.id_insumo
+$SQL="SELECT iv.id_insumo, i.nom_insumo, iv.cant_existencia,i.unidad_medida FROM TBL_inventario iv
+inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumo
 $where";
 $dato = mysqli_query($conexion, $SQL);
 

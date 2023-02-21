@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=13";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=13";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -68,7 +68,7 @@
 
 		if (isset($_GET['busqueda']))
 		{
-			$where="WHERE tbl_promociones_productos.promocionproducto LIKE'%".$busqueda."%'";
+			$where="WHERE TBL_promociones_productos.promocionproducto LIKE'%".$busqueda."%'";
 		}
 	}
 ?>
@@ -95,9 +95,9 @@
 
 		<?php
 			include ("./cone.php");              
-			$SQL="SELECT pr.id_promociones, pr.nom_promocion, p.id_producto, p.nom_producto, pp.id_promociones_productos, pp.cantidad FROM tbl_promociones_productos pp
-			inner JOIN tbl_promociones pr ON pr.id_promociones = pp.id_promociones
-			inner JOIN tbl_producto p ON p.id_producto = pp.id_producto
+			$SQL="SELECT pr.id_promociones, pr.nom_promocion, p.id_producto, p.nom_producto, pp.id_promociones_productos, pp.cantidad FROM TBL_promociones_productos pp
+			inner JOIN TBL_promociones pr ON pr.id_promociones = pp.id_promociones
+			inner JOIN TBL_producto p ON p.id_producto = pp.id_producto
 			$where";
 			$dato = mysqli_query($conexion, $SQL);
 		
@@ -142,7 +142,7 @@
 									<select class="form-control" name="promocionproducto_act" id="Id_promocionproducto_nuevo">
 										<?php
 											include ("./cone.php");   
-											$tipo="SELECT * FROM tbl_promociones";
+											$tipo="SELECT * FROM TBL_promociones";
 											$resultado=mysqli_query($conexion, $tipo);
 											while ($valores = mysqli_fetch_array($resultado)){
 											//validación para obtener el valor guardado en la base de datos
@@ -162,7 +162,7 @@
 								<select class="form-control" name="Id_producto_act" id="Id_producto_act">
 									<?php
 									include ("./cone.php");   
-									$tipo="SELECT * FROM tbl_producto";
+									$tipo="SELECT * FROM TBL_producto";
 									$resultado=mysqli_query($conexion, $tipo);
 									while ($valores = mysqli_fetch_array($resultado)){
 									//validación para obtener el valor guardado en la base de datos
@@ -257,7 +257,7 @@
 								<option value="0">Seleccione una opción</option>
 								<?php
 								include ("./cone.php");   
-								$tipo="SELECT * FROM tbl_promociones";
+								$tipo="SELECT * FROM TBL_promociones";
 								$resultado=mysqli_query($conexion, $tipo);
 								while ($valores = mysqli_fetch_array($resultado)){
 									echo '<option value="'.$valores['id_promociones'].'">'.$valores['nom_promocion'].'</option>';
@@ -271,7 +271,7 @@
 								<option value="0">Seleccione una opción</option>
 								<?php
 								include ("./cone.php");   
-								$tipo="SELECT * FROM tbl_producto";
+								$tipo="SELECT * FROM TBL_producto";
 								$resultado=mysqli_query($conexion, $tipo);
 								while ($valores = mysqli_fetch_array($resultado)){
 									echo '<option value="'.$valores['id_producto'].'">'.$valores['nom_producto'].'</option>';

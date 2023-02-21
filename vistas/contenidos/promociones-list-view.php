@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=21";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=21";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -40,7 +40,7 @@
 
 		//query para obtener los datos de la fecha y id de promocion
 		//para verificar si la promoción ya está vencida y actualizar el estado
-		$SQL="SELECT  * FROM tbl_promociones";
+		$SQL="SELECT  * FROM TBL_promociones";
 		$dato = mysqli_query($conexion, $SQL);
 		//contador para guardar los datos de todas las promociones que puedan existir en la tabla
 		$contador=0;
@@ -120,7 +120,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_promociones.nom_promocion LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_promociones.nom_promocion LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -158,8 +158,8 @@ if(isset($_GET['enviar'])){
 
 include ("./cone.php");              
  $SQL="SELECT p.id_promociones, p.id_estado_promocio, p.nom_promocion, p.fech_ini_promo, p.fech_fin_promo, 
- ep.nom_estado_promociones, p.precio_promocion FROM tbl_promociones p
- inner join tbl_estado_promociones ep on ep.id_estado_promociones=p.id_estado_promocio;
+ ep.nom_estado_promociones, p.precio_promocion FROM TBL_promociones p
+ inner join TBL_estado_promociones ep on ep.id_estado_promociones=p.id_estado_promocio;
  $where";
 $dato = mysqli_query($conexion, $SQL);
 //contador para hacer comprobacion de todas los registros guardados en el arreglo de id_promocion y fecha_final
@@ -173,7 +173,7 @@ if($dato -> num_rows >0){
 		//si la fecha actual es mayor que la fecha final se procede a actualizar el estado de la promocion
 		$dias = $fecha_actual->diff($fecha_final[$i])->format('%r%a');
 		if ($dias <= 0) {
-			$SQL="UPDATE tbl_promociones SET id_estado_promocio=2 WHERE id_promociones='$id_promocion[$i]'";
+			$SQL="UPDATE TBL_promociones SET id_estado_promocio=2 WHERE id_promociones='$id_promocion[$i]'";
 		}
 		$datos = mysqli_query($conexion, $SQL);
 		$i++;
@@ -227,7 +227,7 @@ if($dato -> num_rows >0){
 												<select class="form-control" name="estado_promo_actu" id="Id_producto_nuevo" value="<?php echo $fila['id_estado_promocio']?>"required>
 													<?php
 													include ("./cone.php");   
-													$tipo="SELECT * FROM tbl_estado_promociones";
+													$tipo="SELECT * FROM TBL_estado_promociones";
 													$resultado=mysqli_query($conexion, $tipo);
 														while ($valores = mysqli_fetch_array($resultado)){
 											
@@ -339,7 +339,7 @@ if($dato -> num_rows >0){
 				<option value="0">Seleccione una opción</option>
 					<?php
 					include ("./cone.php");   
-					$tipo="SELECT * FROM tbl_estado_promociones";
+					$tipo="SELECT * FROM TBL_estado_promociones";
 					$resultado=mysqli_query($conexion, $tipo);
 						while ($valores = mysqli_fetch_array($resultado)){
 							echo '<option value="'.$valores['id_estado_promociones'].'">'.$valores['nom_estado_promociones'].'</option>';

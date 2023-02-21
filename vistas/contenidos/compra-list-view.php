@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=12";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -35,12 +35,6 @@
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
 
-			//llamado al controlador de la factura
-			require_once 'controladores/compraControlador.php';
-			$factura = new Invoice();
-			if (isset($_POST['boton'])) {
-				$factura->anularCompra($_POST);
-			} 
 ?>
 
 <div class="full-box page-header">
@@ -73,7 +67,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE tbl_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -110,10 +104,10 @@ if(isset($_GET['enviar'])){
 		
 			<?php
 				$SQL="SELECT c.id_compra, c.id_estado_compra, c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
-				c.total_compra FROM tbl_compras c
-				inner JOIN tbl_Proveedores p ON p.id_Proveedores = c.id_proveedor
-				inner JOIN tbl_usuarios u ON u.id_usuario = c.id_usuario
-				inner JOIN tbl_estado_compras e ON e.id_estado_compra = c.id_estado_compra
+				c.total_compra FROM TBL_compras c
+				inner JOIN TBL_proveedores p ON p.id_proveedores = c.id_proveedor
+				inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
+				inner JOIN TBL_estado_compras e ON e.id_estado_compra = c.id_estado_compra
 				ORDER BY c.id_compra DESC 
 				$where";
 				$dato = mysqli_query($conexion, $SQL);
@@ -140,7 +134,7 @@ if(isset($_GET['enviar'])){
 					</a>
 				</td>
 				<td>
-				<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
+				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/compraAjax.php" method="POST" data-form="delete" autocomplete="off">
 					<input type="hidden" pattern="" class="form-control" name="id_compra_del" id="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
 					<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" id="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">
 					<input type="hidden" pattern="" class="form-control" name="id_estado_del" id="id_estado_del" value="<?php echo $fila['id_estado_compra'] ?>">	

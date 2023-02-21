@@ -8,7 +8,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=16";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=16";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -82,7 +82,7 @@
     		</h3>
 			</div>
 			<?php
-				$SQL="SELECT * FROM tbl_pedidos";
+				$SQL="SELECT * FROM TBL_pedidos";
 				$dato = mysqli_query($conexion, $SQL);
 				
 				//Validacion para obtener el id del pedido que estamos realizando
@@ -97,7 +97,7 @@
 
 				//query de la tabla del talonario
 				//se obtienen los datos del valor inicial, valor actual y valor final del talonario
-				$SQL="SELECT * FROM tbl_talonario_cai";
+				$SQL="SELECT * FROM TBL_talonario_cai";
 				$dato = mysqli_query($conexion, $SQL);
 					
 				if($dato -> num_rows >0){
@@ -176,7 +176,7 @@
 						<select class="form-control" name="forma_pago_venta" id="forma_pago_venta" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
-							$SQL="SELECT * FROM tbl_forma_pago";
+							$SQL="SELECT * FROM TBL_forma_pago";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
@@ -204,7 +204,7 @@
 						<label class="color-label">Estado de Pedido</label>
 						<select class="form-control" name="estado_pedido" id="estado_pedido">
 							<?php
-							$SQL="SELECT * FROM tbl_estado_pedido LIMIT 1";
+							$SQL="SELECT * FROM TBL_estado_pedido LIMIT 1";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
@@ -234,7 +234,7 @@
 					<label class="color-label">Descuento</label>
 					<td><select name="nombredescuento_1" id="nombredescuento_1" class="form-control nombreDescuento">
 									<?php
-									$SQL="SELECT * FROM tbl_descuentos";
+									$SQL="SELECT * FROM TBL_descuentos";
 									$dato = mysqli_query($conexion, $SQL);
 									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
 									
@@ -276,7 +276,7 @@
 							<td><select name="nombreProducto[]" id="nombreProducto_1" class="form-control nombreProducto"
 							 required>
 									<?php
-									$SQL="SELECT * FROM tbl_producto";
+									$SQL="SELECT * FROM TBL_producto";
 									$dato = mysqli_query($conexion, $SQL);
 									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
 									

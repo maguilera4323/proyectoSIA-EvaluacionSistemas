@@ -13,7 +13,7 @@
 
 	//validación para obtener la alerta de cantidades bajos de insumos
 	//se obtiene la cantidad minima de cada insumo con este query
-	$sqlInsumos="SELECT* FROM tbl_insumos";
+	$sqlInsumos="SELECT* FROM TBL_insumos";
 	$dato = mysqli_query($conexion, $sqlInsumos); 
 	$cont=0;
 		if($dato -> num_rows >0){
@@ -24,7 +24,7 @@
 		} 
 
 		//query para obtener las cantidades en inventario de cada insumo
-		$sqlInventario="SELECT* FROM tbl_inventario";
+		$sqlInventario="SELECT* FROM TBL_inventario";
 		$dato = mysqli_query($conexion, $sqlInventario); 
 		$cont=0;
 			if($dato -> num_rows >0){
@@ -47,7 +47,7 @@
 
 	$rol=$_SESSION['id_rol'];
 	//query para extraer los tipos de objeto con los que cuenta el sistema actualmente
-	$sql="SELECT tipo_objeto FROM tbl_permisos 
+	$sql="SELECT tipo_objeto FROM TBL_permisos 
 	where id_rol='$rol'";
 	$dato = mysqli_query($conexion, $sql); 
 
@@ -106,7 +106,7 @@
 		<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 		<p>	
 			<?php
-				$sql=" SELECT COUNT(*) as total_proveedores FROM `tbl_proveedores` ";
+				$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_proveedores` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
 			?>
@@ -137,7 +137,7 @@
 				<i class="fas fa-shopping-cart"></i>
 				<p>
 			<?php
-				$sql=" SELECT COUNT(*) as total_compras FROM `tbl_compras` ";
+				$sql=" SELECT COUNT(*) as total_compras FROM `TBL_compras` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
 			?>
@@ -165,7 +165,7 @@
 				<i class="fas fa-pallet fa-fw"></i>
 				<p>
 			<?php
-				$sql=" SELECT COUNT(*) as total_insumos FROM `tbl_insumos` ";
+				$sql=" SELECT COUNT(*) as total_insumos FROM `TBL_insumos` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
 			?>
@@ -193,7 +193,7 @@
 				<i class="fas fa-mug-hot fa-fw"></i>
 				<p>
 			<?php
-				$sql=" SELECT COUNT(*) as total_productos FROM `tbl_producto` ";
+				$sql=" SELECT COUNT(*) as total_productos FROM `TBL_producto` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
 			?>
@@ -222,7 +222,7 @@
 	<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 				<p>	
 			<?php
-				$sql=" SELECT COUNT(*) as total_usuarios FROM `tbl_usuarios` ";
+				$sql=" SELECT COUNT(*) as total_usuarios FROM `TBL_usuarios` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
 			?>
@@ -252,7 +252,7 @@
 			<div class="tile-icon">
 				<i class="fas fa-store-alt fa-fw"></i>
 				<p><?php
-				$sql=" SELECT COUNT(*) as total_facturas FROM `tbl_pedidos` ";
+				$sql=" SELECT COUNT(*) as total_facturas FROM `TBL_pedidos` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
 				?>

@@ -10,7 +10,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM tbl_permisos where id_rol='$id_rol' and id_objeto=3";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=3";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -80,7 +80,7 @@ if(isset($_GET['enviar'])){
 
 
 	if (isset($_GET['busqueda'])){
-		$where="WHERE tbl_insumos.nom_insumo LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_insumos.nom_insumo LIKE'%".$busqueda."%'";
 	}
 }
 ?>
@@ -108,8 +108,8 @@ if(isset($_GET['enviar'])){
         <tbody>
 			<?php
 				include ("./cone.php");              
-				$SQL="SELECT i.id_insumos, i.nom_insumo, c.id_categoria, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida FROM tbl_insumos i
-				inner JOIN tbl_categoria_produ c ON c.id_categoria = i.id_categoria
+				$SQL="SELECT i.id_insumos, i.nom_insumo, c.id_categoria, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida FROM TBL_insumos i
+				inner JOIN TBL_categoria_produ c ON c.id_categoria = i.id_categoria
 				$where";
 				$dato = mysqli_query($conexion, $SQL);
 
@@ -164,7 +164,7 @@ if(isset($_GET['enviar'])){
 													<select class="form-control" name="categoria_insumo_act" required>
 														<?php
 															include ("./cone.php");   
-															$tipo="SELECT * FROM tbl_categoria_produ";
+															$tipo="SELECT * FROM TBL_categoria_produ";
 															$resultado=mysqli_query($conexion, $tipo);
 															while ($valores = mysqli_fetch_array($resultado)){
 																//validación para obtener el valor guardado en la base de datos
@@ -295,7 +295,7 @@ if(isset($_GET['enviar'])){
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<?php
 									include ("./cone.php");   
-									$tipo="SELECT * FROM tbl_categoria_produ";
+									$tipo="SELECT * FROM TBL_categoria_produ";
 									$resultado=mysqli_query($conexion, $tipo);
 									while ($valores = mysqli_fetch_array($resultado)){
 										echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';

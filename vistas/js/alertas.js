@@ -90,6 +90,16 @@ function alertas_ajax(alerta){
 			}
 		});
 	}else if(alerta.Alerta=="redireccionar"){
-		window.location.href=alerta.URL;
+		Swal.fire({
+			title: alerta.Titulo,
+			text: alerta.Texto,
+			type: alerta.Tipo,
+			confirmButtonText: 'Aceptar'
+		}).then((result) => {
+			if(result.value){
+				location.href(alerta.URL);
+			}
+		});
+		
 	}
 }

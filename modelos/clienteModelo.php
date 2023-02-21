@@ -7,7 +7,7 @@
 		/*--------- Modelo agregar cliente ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_cliente_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO tbl_Clientes(nom_cliente,rtn_cliente,
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_Clientes(nom_cliente,rtn_cliente,
 			dni_clinte,tel_cliente)
 			VALUES(?,?,?,?)");
 
@@ -24,7 +24,7 @@
 		/*--------- Modelo actualizar CLIENTE ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_cliente_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE tbl_Clientes SET nom_cliente=?,rtn_cliente=?,dni_clinte=?,tel_cliente=? WHERE id_clientes=?");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_Clientes SET nom_cliente=?,rtn_cliente=?,dni_clinte=?,tel_cliente=? WHERE id_clientes=?");
 
 			$sql->bindParam(1,$dato['nombre']);
 			$sql->bindParam(3,$dato['dni']);
@@ -39,7 +39,7 @@
 
 		protected static function datos_cliente_modelo($tipo,$id){
 			if($tipo=='unico'){
-				$sql=mainModel::conectar()->prepare("SELECT * FROM tbl_Clientes where id_clientes=?");
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_Clientes where id_clientes=?");
 				$sql->bindParam(1,$id);
 			}
 			$sql->execute();
@@ -50,7 +50,7 @@
 
 		 protected static function eliminar_cliente_modelo($accion,$id){
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM tbl_Proveedores where id_Proveedores=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Proveedores=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

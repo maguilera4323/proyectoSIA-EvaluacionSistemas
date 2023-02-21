@@ -25,7 +25,7 @@
 		</thead>
 		<?php
 			include ("./cone.php");
-			$sql="SELECT * FROM tbl_bitacora WHERE id_bitacora ORDER BY id_bitacora DESC ";
+			$sql="SELECT * FROM TBL_bitacora WHERE id_bitacora ORDER BY id_bitacora DESC ";
 			$result=mysqli_query($conexion,$sql);
 			while($mostrar=mysqli_fetch_assoc ($result)){
 		?>
