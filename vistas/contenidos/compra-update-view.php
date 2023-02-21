@@ -28,12 +28,6 @@
 				echo "<script> window.location.href='".SERVERURL."compra-list/'; </script>";
 			}
 
-	//llamado al controlador de la factura
-    require_once 'controladores/compraControlador.php';
-	$factura = new Invoice();
-	if (isset($_POST['invoice_btn'])) {
-		$factura->actualizarFactura($_POST);
-	}
 ?>
 <br>
 
@@ -48,16 +42,18 @@
 					
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
-					$query="SELECT p.nom_proveedor,p.id_Proveedores, c.id_estado_compra, u.usuario,c.fech_compra,c.total_compra FROM TBL_compras c
-					inner join TBL_Proveedores p on p.id_Proveedores=c.id_proveedor
+					$query="SELECT p.nom_proveedor,p.id_proveedores, c.id_estado_compra, u.usuario,c.fech_compra,c.total_compra,
+					u.id_usuario FROM TBL_compras c
+					inner join TBL_proveedores p on p.id_proveedores=c.id_proveedor
 					inner join TBL_usuarios u on u.id_usuario=c.id_usuario
 					where c.id_compra='$id_act_compra'";
 					$resultado=mysqli_query($conexion,$query);
 
 					if($resultado -> num_rows >0){
 					while($fila=mysqli_fetch_array($resultado)){
-							$id_proveedor=$fila['id_Proveedores'];
+							$id_proveedor=$fila['id_proveedores'];
 							$Usuario=$fila['usuario'];
+							$IDUser=$fila['id_usuario'];
 							$Proveedor=$fila['nom_proveedor'];
 							$Fecha=$fila['fech_compra'];
 							$Total=$fila['total_compra'];
@@ -97,7 +93,7 @@
 						}
 					}
 			?>
-	<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
+	<form action="<?php echo SERVERURL; ?>ajax/compraAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">
@@ -111,12 +107,13 @@
 					<div class="form-group">
 						<label class="color-label">Proveedor</label>
 						<input type="text" class="form-control" id="cliente_dni" style="text-transform:uppercase;" 
-						value="<?php echo $Proveedor?>" disabled>
+						value="<?php echo $Proveedor?>" readonly>
+						<input type="hidden" name="id_usuario" value="<?php echo $IDUser?>"readonly>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Usuario</label>
 						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
-						value="<?php echo $Usuario ?>" style="text-transform:uppercase;" disabled>
+						value="<?php echo $Usuario ?>" style="text-transform:uppercase;" readonly>
 					</div>	
 				</div>      		
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
@@ -194,7 +191,7 @@
 						<tr>
 							<td><input class="itemRow" type="checkbox"></td>
 							<td><input type="text" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" value="<?php echo $id_act_detalle;?>" autocomplete="off"></td>
-							<td><input type="text" name="Name[]" id="Name_<?php echo $count; ?>" class="form-control" value="<?php echo $nomInsumo;?>" autocomplete="off" disabled></td>
+							<td><input type="text" name="Name[]" id="Name_<?php echo $count; ?>" class="form-control" value="<?php echo $nomInsumo;?>" autocomplete="off" readonly></td>
 							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_<?php echo $i; ?>" class="form-control" value="<?php echo $fechaCad; ?>" autocomplete="off"></td>
 							<td><input type="number" name="quantity[]" id="quantity_<?php echo $i; ?>" class="form-control quantity" value="<?php echo $cantidad; ?>" autocomplete="off"></td>
 							<td><input type="number" name="price[]" id="price_<?php echo $i; ?>" class="form-control price" value="<?php echo $precio; ?>" autocomplete="off"></td>
@@ -214,7 +211,7 @@
 								<input type="hidden" value="<?php echo $idInsumo; ?>" class="form-control" 
 								id="productName_<?php echo $count; ?>" name="productName[]">
 								<input type="hidden" value="<?php echo $id_proveedor; ?>" class="form-control" 
-								id="proveedor_compra" name="proveedor_compra">
+								id="proveedor_compra" name="proveedor_compra_act">
 							</div>
 						<?php 
 						//después de traer un registro a la tabla el valor de $id_act_detalle aumenta en 1
@@ -242,43 +239,7 @@
 								<div class="input-group-addon currency">L.</div>
 								<input type="number" class="form-control" name="subTotal" value="<?php echo $Total; ?>" id="subTotal">
 							</div>
-							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
-
-							<!-- <div class="form-group">
-							<label>Porcentaje Impuestos: &nbsp;</label>
-							<div class="input-group">
-								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
-								<div class="input-group-addon">%</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Monto impuestos: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Total: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">$</div>
-								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Monto Pagado: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Cambio: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
-							</div>
-						</div> -->
+							
 					</span>
 				</div>
 			</div>

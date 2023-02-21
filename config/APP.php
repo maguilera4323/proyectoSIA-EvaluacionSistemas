@@ -1,5 +1,5 @@
 <?php
-    const SERVERURL="http://localhost/proyectoSIA-Evaluacion/";  /* CUANDO SE TENGA EL URL DE HOSTING AQUI SE COLOCARA */
+    const SERVERURL="http://localhost/proyectoSIA-EvaluacionSistemas/";  /* CUANDO SE TENGA EL URL DE HOSTING AQUI SE COLOCARA */
 
     const COMPANY="SIA";/* NOMBRE DE LA COMPAÑIA */
     const MONEDA="$";/* TIPO DE CAMBIOP O MONEDA */

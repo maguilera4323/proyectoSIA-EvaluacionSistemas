@@ -14,7 +14,7 @@ if($peticionAjax){
 
 class compraControlador extends compraModelo{
 
-	
+	/* Funciones para agregar datos a TBL_compras y TBL_detalle_compras */
 	public function agregarCompra(){
 		$proveedor=mainModel::limpiar_cadena($_POST['proveedor_compra']);
 		$estado=mainModel::limpiar_cadena($_POST['estado_compra']);
@@ -89,6 +89,117 @@ class compraControlador extends compraModelo{
 	} 
 
 
+		/* Funciones para actualizar datos de TBL_compras y TBL_detalle_compras */
+		public function actualizarCompra(){
+
+			for ($i = 0; $i <1; $i++){
+				$proveedor=mainModel::limpiar_cadena($_POST['proveedor_compra_act']);
+				$estado=mainModel::limpiar_cadena($_POST['estado_compra']);
+				$fecha_entrega=mainModel::limpiar_cadena($_POST['fecha_compra']);
+				$total=mainModel::limpiar_cadena($_POST['subTotal']);
+				$usuario=mainModel::limpiar_cadena($_POST['id_usuario']);
+				$id_compra=mainModel::limpiar_cadena($_POST['id_act_compra'][$i]);
+						
+				//arreglo enviado al modelo para ser usado en una sentencia INSERT
+				$datos_compra_act=[
+					"prov"=>$proveedor,
+					"estado"=>$estado,
+					"fech_ent"=>$fecha_entrega,
+					"total"=>$total,
+					"usuario"=>$usuario
+				];
+	
+				$act_compra=compraModelo::actualizarCompraModelo($datos_compra_act,$id_compra);
+			}
+			
+		} 
+	
+
+		public function actualizarDetalleCompra(){
+			for ($i = 0; $i <count($_POST['productCode']); $i++) {
+			$insumo=mainModel::limpiar_cadena($_POST['productName'][$i]);
+			$cantidad=mainModel::limpiar_cadena($_POST['quantity'][$i]);
+			$precio=mainModel::limpiar_cadena($_POST['price'][$i]);
+			$fecha_cad=mainModel::limpiar_cadena($_POST['fechaCaducidad'][$i]);
+			$id_detallecompra=mainModel::limpiar_cadena($_POST['id_act_detallecompra'][$i]);
+			$id_compra=mainModel::limpiar_cadena($_POST['id_act_compra'][$i]);
+			$estado=mainModel::limpiar_cadena($_POST['estado_compra']);
+					
+				 //arreglo enviado al modelo para ser usado en una sentencia INSERT
+				$datos_detallecompra_act=[
+					"ins"=>$insumo,
+					"cant"=>$cantidad,
+					"prec"=>$precio,
+					"fech"=>$fecha_cad,
+					"id_compra"=>$id_compra,
+					"estado"=>$estado
+				];
+	
+				$act_detalle_compra=compraModelo::actDetalleCompraModelo($datos_detallecompra_act,$id_detallecompra);
+				
+				//si el estado de la compra es Realizada se procede a actualizar inventario y registrar el movimiento
+				if($estado==2){
+					//select para obtener los datos de los insumos que componen el producto vendido																																																									
+				
+					//ciclo que se encarga de actualizar el inventario, restando los insumos consumidos por cada producto
+					//y de insertar en la tabla de movimientos de inventario la cantidad de insumos usados y el tipo de movimiento
+					//ciclo para guardar los datos de la compra a restar en el inventario
+							$datos_act_inventario=[
+								"cantidad"=>$cantidad,
+								"id_insumo"=>$insumo,
+							];
+					
+					//objeto que guarda la informacion de la compra anulada que ira a la bitacora
+							$datos_movi_inventario=[
+								"cantidad"=>$cantidad,
+								"id_insumo"=>$insumo,
+								"usuario"=>$_SESSION['id_login'],
+								"estado"=>1,
+								"coment"=>'Entrada de insumos',
+								"fecha"=>date('Y-m-d H:i:s')
+							];
+
+							$sumarInv=compraModelo::sumarInventario($datos_act_inventario); 
+							$insertarMovi=compraModelo::insertarMovimientoInventario($datos_movi_inventario);
+						}
+				}
+
+			//se guarda registro en bitacora y se manda mensaje al usuario
+			if($i>0){
+				$datos_bitacora = [
+                    "id_objeto" => 0,
+                    "fecha" => date('Y-m-d H:i:s'),
+                    "id_usuario" => $_SESSION['id_login'],
+                    "accion" => "Compra Actualizada",
+                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizo una compra en el sistema"
+                ];
+				
+				Bitacora::guardar_bitacora($datos_bitacora); 
+	
+				$alerta=[
+					"Alerta"=>"redireccionar",
+					"Titulo"=>"Compra Actualizada",
+					"Texto"=>"Los datos de la compra han sido actualizados en el sistema",
+					"Tipo"=>"success",
+					"URL"=>'../compra-list/'
+				];
+				echo json_encode($alerta);
+			
+			}else{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido actualizar la compra",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+			}
+			
+		} 
+
+
+
+	/* Funciones para anular compra y hacer la resta de insumos en el inventario */
 	public function anularCompra(){
 		$id_compra=mainModel::limpiar_cadena($_POST['id_compra_del']);
 		$id_estadocompra=mainModel::limpiar_cadena($_POST['id_estado_del']);
@@ -167,11 +278,6 @@ class compraControlador extends compraModelo{
 				];
 				echo json_encode($alerta);
 			}
-			
-
-			
-
-
 		}
 
 	}
