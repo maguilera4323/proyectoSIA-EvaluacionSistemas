@@ -28,12 +28,6 @@
 				echo "<script> window.location.href='".SERVERURL."facturacion-list/'; </script>";
 			}
 
-	//llamado al controlador de la factura
-    require_once 'controladores/facturacionControlador.php';
-	$factura = new Invoice();
-	if (isset($_POST['invoice_btn'])) {
-		$factura->nuevaFactura($_POST);
-	}
 ?>
 <script>
 	function solonumeros(e)
@@ -74,7 +68,7 @@
 </script>
 
 <div class="container content-invoice">
-	<form action="" id="invoice-form" method="post" class="invoice-form">
+<form action="<?php echo SERVERURL; ?>ajax/facturacionAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">
@@ -143,7 +137,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">DNI</label>
-						<input type="text" value="<?php print "0000000000000";?>" class="form-control"  name="dni_pedido" id="dni_pedido" maxlength="13" 
+						<input type="text" value="<?php print "0000000000000";?>" class="form-control"  name="dni_pedido_nuevo" id="dni_pedido" maxlength="13" 
 						onkeypress="return solonumeros (event)" onChange="cambioTextBox1()">
 						
 						<!-- ESTE SIRVE PARA BLOQUEAR LA CAJA DE TEXTO DE NOMBRE DE CLIENTE SIEMPRE Y CUANDO SE CUMPLA LA CONDICION DE 
@@ -168,12 +162,13 @@
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
 						<input type="text" class="form-control" value="<?php echo $numFacturaActual;?>"   
-						style="text-transform:uppercase;"  disabled>
-						<input type="hidden" value="<?php echo $numFacturaActual;?>" class="form-control" id="num_factura" name="num_factura">
+						style="text-transform:uppercase;" readonly>
+						<input type="hidden" value="<?php echo $numFacturaActual;?>" class="form-control" id="num_factura_nuevo" 
+						name="num_factura_nuevo">
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Forma de Pago</label>
-						<select class="form-control" name="forma_pago_venta" id="forma_pago_venta" required>
+						<select class="form-control" name="forma_pago_nuevo" id="forma_pago_nuevo" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
 							$SQL="SELECT * FROM TBL_forma_pago";
@@ -191,18 +186,20 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Cliente</label>
-						<input type="text" placeholder="Ingrese nombre de cliente" name="cliente_pedido" id="cliente_pedido" class="form-control" 
+						<input type="text" placeholder="Ingrese nombre de cliente" name="cliente_pedido_nuevo" 
+						id="cliente_pedido_nuevo" class="form-control" 
 						value="<?php print "Consumidor Final";?>" autocomplete="off">
 					</div>
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
-						<input type="text" placeholder="Ingrese dirección" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off" required>
-					    <input type="hidden" name="numPedido" id="numPedido" class="form-control" value="<?php echo $idPedidoActual; ?>" autocomplete="off">
+						<input type="text" placeholder="Ingrese dirección" name="sitio_entrega_nuevo" id="sitio_entrega_nuevo" 
+						class="form-control" autocomplete="off" required>
+					    <input type="hidden" name="numPedido_nuevo" id="numPedido_nuevo" class="form-control" value="<?php echo $idPedidoActual; ?>" autocomplete="off">
 					</div>			
 
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
-						<select class="form-control" name="estado_pedido" id="estado_pedido">
+						<select class="form-control" name="estado_pedido_nuevo" id="estado_pedido_nuevo">
 							<?php
 							$SQL="SELECT * FROM TBL_estado_pedido LIMIT 1";
 								$dato = mysqli_query($conexion, $SQL);
@@ -218,17 +215,17 @@
 					<div class="form-group">
 						<label class="color-label">Fecha</label>
 						<?php $fcha = date("Y-m-d");?>
-						<input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fcha?>" disabled>
+						<input type="date" class="form-control" name="fecha_nuevo" id="fecha_nuevo" value="<?php echo $fcha?>" readonly>
 					</div>	
 				</div>      		
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right">
 					<div class="form-group">
 						<label class="color-label">Fecha Pedido</label>
-						<input type="date" class="form-control" name="fecha_pedido" id="fecha_pedido" required>
+						<input type="date" class="form-control" name="fecha_pedido_nuevo" id="fecha_pedido_nuevo" required>
 					</div>
 					<div class="form-group">
 						<label class="color-label">Fecha Entrega</label>
-						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" required>
+						<input type="date" class="form-control" name="fecha_entrega_nuevo" id="fecha_entrega_nuevo" required>
 					</div>
 					<div class="form-group">
 					<label class="color-label">Descuento</label>
@@ -351,7 +348,7 @@
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
-						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" 
+						<input type="submit" name="invoice_btn" value="Guardar factura" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;">
 						<a href="<?php echo SERVERURL; ?>facturacion-list/"><input value="salir" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;"></a>

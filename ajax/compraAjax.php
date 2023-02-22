@@ -16,7 +16,7 @@
 			die();
 		}
 
-		/*--------- Agregar una compra ---------*/
+		/*--------- Actualizar una compra ---------*/
 		if(isset($_POST['id_act_compra'])){
 			echo $ins_compra->actualizarCompra();
 			echo $ins_compra->actualizarDetalleCompra();
@@ -24,7 +24,7 @@
 		}
 		
 		
-		/*--------- Eliminar un insumo ---------*/
+		/*--------- Eliminar una compra ---------*/
 		if(isset($_POST['id_compra_del']) ){
 			echo $ins_compra->anularCompra();
 			die();
