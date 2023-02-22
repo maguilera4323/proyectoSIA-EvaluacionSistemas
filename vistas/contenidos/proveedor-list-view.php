@@ -118,11 +118,11 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['correo_proveedor']; ?></td>
 <td><?php echo $fila['dir_proveedor']; ?></td>
 <td>
-				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_Proveedores'];?>">
+				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_proveedores'];?>">
 					<i class="fas fa-sync-alt"> </i>
 				</div>
 						<!-- Modal actualizar-->
-						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_Proveedores'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_proveedores'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<?php
 							if(!isset($permiso_act)){
 								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un proveedor</div>';
@@ -165,7 +165,7 @@ if($dato -> num_rows >0){
 											<input type="text" class="form-control" name="direccion_proveedor_actu" id="cliente_dni" value="<?php echo $fila['dir_proveedor']?>" required>
 										</div>
 										<div class="form-group">
-											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_Proveedores']?>">
+											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_proveedores']?>">
 										</div>
 										<button type="submit" class="btn btn-primary">Guardar</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -180,7 +180,7 @@ if($dato -> num_rows >0){
 			</td>
 <td>
 	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/proveedorAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_Proveedores'] ?>">
+	<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_proveedores'] ?>">
 	<input type="hidden" pattern="" class="form-control" name="proveedor_del" value="<?php echo $fila['nom_proveedor'] ?>">	
 	<button type="submit" class="btn btn-warning">
 		<i class="far fa-trash-alt"></i>
