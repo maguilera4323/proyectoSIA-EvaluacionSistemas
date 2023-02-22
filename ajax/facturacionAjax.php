@@ -2,19 +2,32 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if('')
+	if(isset($_POST['dni_pedido_nuevo']) || isset($_POST['id_act_compra']) || isset($_POST['id_compra_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/facturacionControlador.php";
-		$ins_facturacion = new facturacionControlador();
+		$ins_factura = new facturacionControlador();
 
 
+		/*--------- Agregar una compra ---------*/
+		if(isset($_POST['dni_pedido_nuevo'])){
+			echo $ins_factura->agregarPedido();
+			die();
+		}
+
+		/*--------- Actualizar una compra ---------*/
+		if(isset($_POST['id_act_compra'])){
+			echo $ins_compra->actualizarCompra();
+			echo $ins_compra->actualizarDetalleCompra();
+			die();
+		}
 		
-	}else{
-        session_start();//se cambio de SPM  a SIA
-        session_unset();//Vaciamos la sesion
-        session_destroy();//destruimos la sesion
-        header("Location: ".SERVERURL."login/");//lo redirigimos al login para que ingrese con su usuario
-        exit();}
+		
+		/*--------- Eliminar una compra ---------*/
+		if(isset($_POST['id_compra_del']) ){
+			echo $ins_compra->anularCompra();
+			die();
+		}
+	}
 
 	

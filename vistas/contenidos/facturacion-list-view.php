@@ -34,13 +34,6 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
-
-			//llamado al controlador de la factura
-			require_once 'controladores/facturacionControlador.php';
-			$factura = new Invoice();
-			if (isset($_POST['boton'])) {
-				$factura->anularPedido($_POST);
-			} 
 ?>
 
 <div class="full-box page-header">

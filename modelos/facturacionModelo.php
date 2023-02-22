@@ -2,20 +2,50 @@
 	
 	require_once "mainModel.php";
 
-	class compraModelo extends mainModel{
-		//Funciones para agregar una compra
-		protected function agregar_compra_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_compras(id_proveedor,id_usuario,
-			id_estado_compra,fech_compra,total_compra)
-			VALUES(?,?,?,?,?)");
+	class facturacionModelo extends mainModel{
 
-			$sql->bindParam(1,$datos['prov']);
-			$sql->bindParam(2,$datos['usuario']);
-			$sql->bindParam(3,$datos['estado']);
-			$sql->bindParam(4,$datos['fech_ent']);
-			$sql->bindParam(5,$datos['total']);
+		//Funciones para agregar un pedido
+		protected function agregarPedidoModelo($datos,$isv){
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_pedidos(nom_cliente,dni_cliente, num_factura, fech_pedido,
+			fech_entrega,sitio_entrega, id_estado_pedido,sub_total, isv, total,id_forma_pago,fech_facturacion,porcentaje_isv)
+			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+			$sql->bindParam(1,$datos['ncliente']);
+			$sql->bindParam(2,$datos['dni']);
+			$sql->bindParam(3,$datos['nfac']);
+			$sql->bindParam(4,$datos['fecha_p']);
+			$sql->bindParam(5,$datos['fecha_e']);
+			$sql->bindParam(6,$datos['sitio']);
+			$sql->bindParam(7,$datos['est']);
+			$sql->bindParam(8,$datos['subtotal']);
+			$sql->bindParam(9,$datos['montoISV']);
+			$sql->bindParam(10,$datos['total']);
+			$sql->bindParam(11,$datos['fpago']);
+			$sql->bindParam(12,$datos['fecha_f']);
+			$sql->bindParam(13,$isv);
 			$sql->execute();
 			return $sql;								
+		}
+
+
+		protected function actualizarNumCAI($dato){
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_talonario_cai SET cai_actual=?");
+
+			$sql->bindParam(1,$dato);
+			$sql->execute();
+			return $sql;	
+		}
+
+
+		protected function agregarDescuentoModelo($id_descuento, $montoDescuento,$id_pedido){
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_pedido_descuentos(id_descuentos,id_pedidos,total_descontado)
+			 VALUES(?,?,?)");
+
+			$sql->bindParam(1,$id_descuento);
+			$sql->bindParam(2,$id_pedido);
+			$sql->bindParam(3,$montoDescuento);
+			$sql->execute();
+			return $sql;
 		}
 
 		protected function agregar_detallecompra_modelo($datos){
@@ -30,6 +60,32 @@
 			$sql->bindParam(6,$datos['estado']);
 			$sql->execute();
 			return $sql;						
+		}
+
+
+		protected function agregarDetallePedModelo($datos,$id){
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_detalle_pedido(id_pedido,id_producto,cantidad, precio_venta)
+			 VALUES(?,?,?,?)");
+
+			$sql->bindParam(1,$id);
+			$sql->bindParam(2,$datos['producto']);
+			$sql->bindParam(3,$datos['cantidad']);
+			$sql->bindParam(4,$datos['precio']);
+			$sql->execute();
+			return $sql;
+		}
+
+
+		protected function agregarDetallePromModelo($datos,$id){
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_pedidos_promociones(id_promocion, id_pedido,cantidad,
+			 precio_venta)VALUES(?,?,?,?)");
+
+			$sql->bindParam(1,$datos['promocion']);
+			$sql->bindParam(2,$id);
+			$sql->bindParam(3,$datos['cantidad']);
+			$sql->bindParam(4,$datos['precio']);
+			$sql->execute();
+			return $sql;
 		}
 
 
