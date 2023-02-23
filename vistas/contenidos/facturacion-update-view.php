@@ -28,12 +28,6 @@
 				echo "<script> window.location.href='".SERVERURL."facturacion-list/'; </script>";
 			}
 
-	//llamado al controlador de la factura
-    require_once 'controladores/facturacionControlador.php';
-	$factura = new Invoice();
-	if (isset($_POST['invoice_btn'])) {
-		$factura->actualizarFactura($_POST);
-	}
 ?>
 
 <div class="container content-invoice">
@@ -69,13 +63,13 @@
 							$estado=$fila['id_estado_pedido'];
 						}
 					}
-/* 
+ 
 					//valida si el query anterior no retornó ningún valor
 					//si el estado es distinto a Pendiente no se puede editar la venta
 					if($estado!=1){
 						echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar ventas con estado Pendiente</div>';
 						echo "<script> window.location.href='".SERVERURL."facturacion-list/'; </script>";	
-					} */
+					} 
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos
@@ -147,7 +141,7 @@
 						$isv=15;
 
 			?>
-	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
+	<form action="<?php echo SERVERURL; ?>ajax/facturacionAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">
@@ -160,17 +154,17 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">DNI</label>
-						<input type="text" class="form-control" name="dni_pedido" id="dni_pedido" maxlength="27" 
+						<input type="text" class="form-control" name="dni_pedido_act" id="dni_pedido_act" maxlength="27" 
 						value="<?php echo $dni_cliente; ?>" required>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
-						<input type="text" class="form-control" name="num_factura" id="num_factura" maxlength="40" 
+						<input type="text" class="form-control" name="num_factura_act" id="num_factura_act" maxlength="40" 
 						style="text-transform:uppercase;" value="<?php echo $numFactura; ?> " disabled>
 					</div>
 					<div class="form-group">
 						<label class="color-label">Forma de Pago</label>
-						<input type="text" class="form-control" name="forma_pago_venta" id="forma_pago_venta" maxlength="40" 
+						<input type="text" class="form-control" name="forma_pago_venta_act" id="forma_pago_venta_act" maxlength="40" 
 						 value="<?php echo $formaPago; ?> " disabled>
 					</div>		
 					
@@ -178,16 +172,16 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Cliente</label>
-						<input type="text" class="form-control" name="cliente_pedido" id="cliente_pedido" maxlength="27" 
+						<input type="text" class="form-control" name="cliente_pedido_act" id="cliente_pedido_act" maxlength="27" 
 						value="<?php echo $nom_cliente; ?>" required>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
-						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" value="<?php echo $sitioEntrega; ?>" autocomplete="off">
+						<input type="text" name="sitio_entrega_act" id="sitio_entrega_act" class="form-control" value="<?php echo $sitioEntrega; ?>" autocomplete="off">
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
-						<select class="form-control" name="estado_pedido" id="estado_pedido" >
+						<select class="form-control" name="estado_pedido_act" id="estado_pedido_act" >
 							<?php
 							$SQL="SELECT * FROM TBL_estado_pedido where id_estado_pedido<=2";
 								$dato = mysqli_query($conexion, $SQL);
@@ -203,17 +197,17 @@
 					<div class="form-group">
 						<label class="color-label">Fecha</label>
 						<?php $fcha = date("Y-m-d");?>
-						<input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fcha?>" disabled>
+						<input type="date" class="form-control" name="fecha_act" id="fecha_act" value="<?php echo $fcha?>" disabled>
 					</div>	
 				</div>      		
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right">
 					<div class="form-group">
 						<label class="color-label">Fecha Pedido</label>
-						<input type="date" class="form-control" name="fecha_pedido" id="fecha_pedido" value="<?php echo $fechaPedido; ?>">
+						<input type="date" class="form-control" name="fecha_pedido_act" id="fecha_pedido" value="<?php echo $fechaPedido; ?>">
 					</div>
 					<div class="form-group">
 						<label class="color-label">Fecha Entrega</label>
-						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" value="<?php echo $fechaEntrega; ?>">
+						<input type="date" class="form-control" name="fecha_entrega_act" id="fecha_entrega" value="<?php echo $fechaEntrega; ?>">
 					</div>
 					<div class="form-group">
 					<label class="color-label">Descuento</label>
@@ -298,7 +292,7 @@
 					<table class="table table-bordered table-hover" onkeypress="return solonumeros (event)" id="invoiceItemPromociones">
 						<tr>
 							<th width="2%"><input id="checkAllPromo"  class="formcontrol" type="checkbox"></th>
-							<th width="19%">ID Promocion</th>
+							<th width="19%">ID Det .Promocion</th>
 							<th width="19%">Promocion</th>
 							<th width="15%">Cantidad</th>
 							<th width="15%">Precio</th>
@@ -346,7 +340,7 @@
 								<!--nombreProducto[] para realizar la validacion del segundo query!-->
 								<input type="hidden" value="<?php echo $id_act_pedido; ?>" class="form-control" 
 								id="id_act_pedido_<?php echo $i; ?>" name="id_act_pedido[]">
-								<input type="hidden" value="<?php echo $id_prom_detalle; ?>" class="form-control" 
+								<input type="hidden" value="<?php echo $idPedPromocion; ?>" class="form-control" 
 								id="id_prom_detalleprom_<?php echo $j; ?>" name="id_prom_detalleprom[]">
 								<input type="hidden" value="<?php echo $idPromocion; ?>" class="form-control" 
 								id="idPromocion_<?php echo $j; ?>" name="idPromocion[]">

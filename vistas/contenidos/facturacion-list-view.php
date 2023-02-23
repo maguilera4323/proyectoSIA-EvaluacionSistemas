@@ -148,7 +148,7 @@ if(isset($_GET['enviar'])){
 					</form>
 				</td>
 				<td>
-				<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
+				<form action="<?php echo SERVERURL; ?>ajax/facturacionAjax.php" class="FormularioAjax" method="POST" data-form="delete" autocomplete="off">
 					<input type="hidden" pattern="" class="form-control" name="id_pedido_del" id="id_pedido_del" value="<?php echo $fila['id_pedido'] ?>">
 					<button type="submit" class="btn btn-warning" name="boton">
 						<i class="far fa-trash-alt"></i>

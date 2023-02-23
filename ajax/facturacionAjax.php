@@ -2,30 +2,28 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['dni_pedido_nuevo']) || isset($_POST['id_act_compra']) || isset($_POST['id_compra_del']))
+	if(isset($_POST['dni_pedido_nuevo']) || isset($_POST['dni_pedido_act']) || isset($_POST['id_pedido_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/facturacionControlador.php";
 		$ins_factura = new facturacionControlador();
 
 
-		/*--------- Agregar una compra ---------*/
 		if(isset($_POST['dni_pedido_nuevo'])){
 			echo $ins_factura->agregarPedido();
 			die();
 		}
 
-		/*--------- Actualizar una compra ---------*/
-		if(isset($_POST['id_act_compra'])){
-			echo $ins_compra->actualizarCompra();
-			echo $ins_compra->actualizarDetalleCompra();
+
+		if(isset($_POST['dni_pedido_act'])){
+			echo $ins_factura->actualizarPedido();
 			die();
 		}
 		
+	
 		
-		/*--------- Eliminar una compra ---------*/
-		if(isset($_POST['id_compra_del']) ){
-			echo $ins_compra->anularCompra();
+		if(isset($_POST['id_pedido_del']) ){
+			echo $ins_factura->anularPedido();
 			die();
 		}
 	}
