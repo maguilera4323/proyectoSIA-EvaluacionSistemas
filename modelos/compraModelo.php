@@ -5,9 +5,7 @@
 	class compraModelo extends mainModel{
 		//Funciones para agregar una compra
 		protected function agregar_compra_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_compras(id_proveedor,id_usuario,
-			id_estado_compra,fech_compra,total_compra)
-			VALUES(?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_compras(?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['prov']);
 			$sql->bindParam(2,$datos['usuario']);
@@ -19,8 +17,7 @@
 		}
 
 		protected function agregar_detallecompra_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_detalle_compra(id_compra,id_insumos,cantidad_comprada,
-			precio_costo,fecha_caducidad, estado_compra) VALUES(?,?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_detalle_compra(?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['id_compra']);
 			$sql->bindParam(2,$datos['ins']);
@@ -35,8 +32,7 @@
 
 		//Funciones para actualizar una compra
 		protected function actualizarCompraModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_compras set id_proveedor=?, id_usuario=?,
-			id_estado_compra=?,fech_compra=?, total_compra=? where id_compra=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_compras(?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['prov']);
 			$sql->bindParam(2,$datos['usuario']);
@@ -49,8 +45,7 @@
 		}
 
 		protected function actDetalleCompraModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_detalle_compra set id_compra=?, id_insumos=?,
-			cantidad_comprada=?,precio_costo=?, fecha_caducidad=?, estado_compra=? where id_detalle_compra=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_detalle_compra(?,?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['id_compra']);
 			$sql->bindParam(2,$datos['ins']);
