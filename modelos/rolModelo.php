@@ -6,9 +6,7 @@
 
 		protected static function agregar_rol_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_ms_roles(rol,descripcion,
-			creado_por,fecha_creacion)
-			VALUES(?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_roles(?,?,?,?);");
 
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['desc']);
@@ -20,8 +18,8 @@
 
 		protected static function actualizar_rol_modelo($datos,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_ms_roles SET rol=?,descripcion=?,
-			modificado_por=?, fecha_modificacion=? WHERE id_rol=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_roles(?,?,?,?,?);");
+
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['desc']);
 			$sql->bindParam(3,$datos['modif']);
@@ -32,7 +30,7 @@
 		}
 
 		 protected static function eliminar_rol_modelo($id){
-				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_ms_roles where id_rol=?");
+				$sql=mainModel::conectar()->prepare("CALL proc_delete_roles(?);");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;
