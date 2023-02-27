@@ -7,7 +7,9 @@
 
 		/*--------- Modelo agregar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_permiso_modelo($datos)
-		{
+		{	
+			$accion='create';
+			
 			$sql=mainModel::conectar()->prepare("CALL proc_insert_permisos (?,?,?,?,?,?,?,?,?);");
 
 			$sql->bindParam(1,$datos['nombrerol']);
