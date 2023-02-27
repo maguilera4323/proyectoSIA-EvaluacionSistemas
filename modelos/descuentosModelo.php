@@ -7,8 +7,7 @@
 		/*--------- Modelo agregar descuentos ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_descuento_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_descuentos(nom_descuento,porcentaje_descuento)
-			VALUES(?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_descuentos(?,?);");
 
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['porc']);
@@ -23,7 +22,7 @@
 		/*--------- Modelo actualizar descuento ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_descuento_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_descuentos SET nom_descuento=?,porcentaje_descuento=? WHERE id_descuentos=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_descuentos(?,?,?);");
 
 			$sql->bindParam(1,$dato['nombre']);
 			$sql->bindParam(2,$dato['porc']);			
@@ -56,7 +55,7 @@
 		 protected static function eliminar_descuentos_modelo($accion,$id){
 			
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_descuentos where id_descuentos=?");
+				$sql=mainModel::conectar()->prepare("CALL proc_delete_descuentos(?);");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;
