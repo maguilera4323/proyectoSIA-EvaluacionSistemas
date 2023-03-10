@@ -94,12 +94,14 @@ function alertas_ajax(alerta){
 			title: alerta.Titulo,
 			text: alerta.Texto,
 			type: alerta.Tipo,
-			confirmButtonText: 'Aceptar'
-		}).then((result) => {
+		}).then(function() {
+			window.location.href = (alerta.URL);
+		})
+		/* .then((result) => {
 			if(result.value){
 				location.href(alerta.URL);
 			}
-		});
+		}); */
 		
 	}
 }

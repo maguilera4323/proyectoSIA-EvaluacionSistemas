@@ -64,8 +64,7 @@
 	//Funciones para anular una compra del sistema
 
 		protected function insertarMovimientoInventario($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_movi_inventario (id_insumos, cant_movimiento, tipo_movimiento,
-			 fecha_movimiento,id_usuario,comentario) values (?,?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_movi_inventario(?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['id_insumo']);
 			$sql->bindParam(2,$datos['cantidad']);
@@ -78,7 +77,7 @@
 		}
 
 		protected function actEstadoCompra($id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_compras set id_estado_compra=3 where id_compra=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_anular_compra(?)");
 
 			$sql->bindParam(1,$id);
 			$sql->execute();
@@ -89,8 +88,7 @@
 	//Funciones para actualizar el inventario 
 	
 		protected function sumarInventario($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_inventario set cant_existencia=cant_existencia + ?
-			where id_insumo=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_sumar_inventario(?,?)" );
 
 			$sql->bindParam(1,$datos['cantidad']);
 			$sql->bindParam(2,$datos['id_insumo']);
@@ -100,8 +98,7 @@
 
 		
 		protected function restarInventario($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_inventario set cant_existencia=cant_existencia - ?
-			where id_insumo=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_restar_inventario(?,?)");
 
 			$sql->bindParam(1,$datos['cantidad']);
 			$sql->bindParam(2,$datos['id_insumo']);

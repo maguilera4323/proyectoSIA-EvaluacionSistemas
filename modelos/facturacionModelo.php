@@ -6,9 +6,7 @@
 
 		//Funciones para agregar un pedido
 		protected function agregarPedidoModelo($datos,$isv){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_pedidos(nom_cliente,dni_cliente, num_factura, fech_pedido,
-			fech_entrega,sitio_entrega, id_estado_pedido,sub_total, isv, total,id_forma_pago,fech_facturacion,porcentaje_isv)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_pedidos(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['ncliente']);
 			$sql->bindParam(2,$datos['dni']);
@@ -29,7 +27,7 @@
 
 
 		protected function actualizarNumCAI($dato){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_talonario_cai SET cai_actual=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_cai(?)");
 
 			$sql->bindParam(1,$dato);
 			$sql->execute();
@@ -38,8 +36,7 @@
 
 
 		protected function agregarDescuentoModelo($id_descuento, $montoDescuento,$id_pedido){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_pedido_descuentos(id_descuentos,id_pedidos,total_descontado)
-			 VALUES(?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_pedido_descuento(?,?,?)");
 
 			$sql->bindParam(1,$id_descuento);
 			$sql->bindParam(2,$id_pedido);
@@ -48,24 +45,9 @@
 			return $sql;
 		}
 
-		protected function agregar_detallecompra_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_detalle_compra(id_compra,id_insumos,cantidad_comprada,
-			precio_costo,fecha_caducidad, estado_compra) VALUES(?,?,?,?,?,?)");
-
-			$sql->bindParam(1,$datos['id_compra']);
-			$sql->bindParam(2,$datos['ins']);
-			$sql->bindParam(3,$datos['cant']);
-			$sql->bindParam(4,$datos['prec']);
-			$sql->bindParam(5,$datos['fech']);
-			$sql->bindParam(6,$datos['estado']);
-			$sql->execute();
-			return $sql;						
-		}
-
 
 		protected function agregarDetallePedModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_detalle_pedido(id_pedido,id_producto,cantidad, precio_venta)
-			 VALUES(?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_detalle_pedido(?,?,?,?)");
 
 			$sql->bindParam(1,$id);
 			$sql->bindParam(2,$datos['producto']);
@@ -77,8 +59,7 @@
 
 
 		protected function agregarDetallePromModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_pedidos_promociones(id_promocion, id_pedido,cantidad,
-			 precio_venta)VALUES(?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_detalle_promocion(?,?,?,?)");
 
 			$sql->bindParam(1,$datos['promocion']);
 			$sql->bindParam(2,$id);
@@ -91,9 +72,7 @@
 
 		//Funciones para actualizar un pedido
 		protected function actPedidoModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_pedidos set nom_cliente=?, dni_cliente=?,fech_pedido=?,
-			fech_entrega=?,sitio_entrega=?, id_estado_pedido=?, sub_total=?, isv=?, total=?, fech_facturacion=?
-			 where id_pedido=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_pedidos(?,?,?,?,?,?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['ncliente']);
 			$sql->bindParam(2,$datos['dni']);
@@ -112,8 +91,7 @@
 
 
 		protected function actDetPedidoModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_detalle_pedido set id_producto=?,
-			cantidad=?,precio_venta=? where id_detalle_pedido=? and id_pedido=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_detalle_pedidos(?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['producto']);
 			$sql->bindParam(2,$datos['cantidad']);
@@ -126,8 +104,7 @@
 
 
 		protected function actDetPromocionModelo($datos,$id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_pedidos_promociones set cantidad=?, precio_venta=?
-			 where id_pedido_promocion=? and id_pedido=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_update_detalle_promocion(?,?,?,?)");
 
 			$sql->bindParam(1,$datos['cantidad']);
 			$sql->bindParam(2,$datos['precio']);
@@ -141,7 +118,7 @@
 	//Funciones para anular un pedido del sistema
 
 		protected function anularPedidoModelo($id){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_pedidos set id_estado_pedido=3 where id_pedido=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_anular_pedido(?)");
 
 			$sql->bindParam(1,$id);
 			$sql->execute();
@@ -151,8 +128,7 @@
 
 		//Funciones para actualizar el inventario 
 		protected function actInventarioPedido($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_inventario set cant_existencia=cant_existencia - ?
-			where id_insumo=?");
+			$sql=mainModel::conectar()->prepare("CALL proc_restar_inventario(?,?)");
 
 			$sql->bindParam(1,$datos['cant_insumo']);
 			$sql->bindParam(2,$datos['id_insumo']);
@@ -161,8 +137,7 @@
 		}
 
 		protected function insertarMovimientoInventario($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_movi_inventario (id_insumos, cant_movimiento, tipo_movimiento,
-			 fecha_movimiento,id_usuario,comentario) values (?,?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("CALL proc_insert_movi_inventario(?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['id_insumo']);
 			$sql->bindParam(2,$datos['cant_insumo']);
