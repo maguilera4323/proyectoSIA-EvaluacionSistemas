@@ -190,7 +190,7 @@ if($dato -> num_rows >0){
 									<div class="form-group">
 										<label class="color-label">DNI</label>
 										<input type="text" class="form-control" name="dni_cliente_actu" id="cliente_nombre" 
-										value="<?php echo $fila['dni_clinte']?>" required>
+										value="<?php echo $fila['dni_cliente']?>" required>
 									</div>
 									<div class="form-group">
 										<label class="color-label">RTN</label>

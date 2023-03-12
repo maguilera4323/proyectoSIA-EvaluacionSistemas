@@ -155,16 +155,16 @@ class clienteControlador extends clienteModelo
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[0-9 -]{1,13}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El número de RTN no debe superar los 13 dígitos",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
+			//if(mainModel::verificar_datos("[0-9 -]{1,13}",$Rtn)){
+				//$alerta=[
+					//"Alerta"=>"simple",
+					//"Titulo"=>"Ocurrió un error inesperado",
+					//"Texto"=>"El número de RTN no debe superar los 13 dígitos",
+					//"Tipo"=>"error"
+				//];
+				//echo json_encode($alerta);
+				//exit();
+			//}
 
 			if(mainModel::verificar_datos("[0-9 -]{1,14}",$Dni)){
 				$alerta=[
