@@ -12,8 +12,7 @@ if($peticionAjax){
 }
 
 
-class preguntasControlador extends preguntasModelo
-{
+class preguntasControlador extends preguntasModelo{
 
 	/*--------- Controlador agregar pregunta ---------*/
 	public function agregarPregunta()

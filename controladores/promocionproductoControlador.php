@@ -181,7 +181,7 @@ class promocionproductoControlador extends promocionproductoModelo
 			if($eliminarpromocionproducto->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Recetario Eliminado",
+					"Titulo"=>"Promoción de Producto Eliminada",
 					"Texto"=>"La promocion de producto fue eliminada del sistema",
 					"Tipo"=>"success"
 				];
