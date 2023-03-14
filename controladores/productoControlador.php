@@ -196,19 +196,10 @@ class productoControlador extends productoModelo
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
-
-	public function datosproductoControlador($tipo,$id){
-		$tipo=mainModel::limpiar_cadena($tipo);
-		$id=mainModel::limpiar_cadena($id);
-
-		return productoModelo::datos_producto_modelo($tipo,$id);
-	}
-
 	
 
 		//funcion para eliminar un producto
-		public function eliminarProducto()
-		{
+		public function eliminarProducto(){
 			$id=mainModel::limpiar_cadena(($_POST['id_producto_del']));
 			$Producto=mainModel::limpiar_cadena(($_POST['producto_del']));
 			$array=array();
@@ -231,7 +222,7 @@ class productoControlador extends productoModelo
 		}
 
 		
-		$eliminarproducto=productoModelo::eliminar_producto_modelo("borrar",$id);
+		$eliminarproducto=productoModelo::eliminar_producto_modelo($id);
 			if($eliminarproducto->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
